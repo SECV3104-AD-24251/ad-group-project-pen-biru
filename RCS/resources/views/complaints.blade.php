@@ -66,6 +66,11 @@
                 <a href="?sort=desc" class="btn btn-primary">Sort: Low to High</a>
             </div>
         </div>
+        @if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
 
         <!-- Table -->
         <table class="table table-bordered">
@@ -124,6 +129,11 @@
                                 @endif
                             </div>
                             <div class="modal-footer">
+                                <!-- Resolved Button -->
+                                <form method="POST" action="/complaints/{{ $complaint->id }}/resolve">
+                                    @csrf
+                                    <button type="submit" class="btn btn-success">Resolved!</button>
+                                </form>
                                 <button 
                                     type="button" 
                                     class="btn btn-secondary" 
