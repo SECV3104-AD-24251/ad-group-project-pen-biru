@@ -31,7 +31,7 @@ Route::get('/complaints', function () {
 
     $complaints = $query->get();
 
-    return view('complaints', compact('complaints'));
+    return view('complaints.index', compact('complaints')); // Use 'complaints.index' if you have a specific view for listing complaints
 })->name('complaints.index');
 
 // Route to mark a complaint as resolved
@@ -42,3 +42,6 @@ Route::post('/complaints/{id}/resolve', function ($id) {
 
     return redirect()->route('complaints.index')->with('success', 'Complaint marked as resolved!');
 })->name('complaints.resolve');
+
+// Route for status history (using the showHistory method in your controller)
+Route::get('/complaints/{id}/history', [ComplaintController::class, 'showHistory'])->name('complaints.history');
