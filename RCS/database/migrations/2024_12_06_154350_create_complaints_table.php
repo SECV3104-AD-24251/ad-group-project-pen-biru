@@ -18,10 +18,12 @@ return new class extends Migration
             $table->string('resource_type');
             $table->text('description')->nullable();
             $table->string('image')->nullable();
+            $table->string('priority')->nullable();
+            $table->string('status')->default('pending');
             $table->timestamps();
 
-            $table->date('date');
-            $table->string('status')->default('pending');
+            //$table->date('date');
+            
 
         });
     }
