@@ -14,11 +14,15 @@ return new class extends Migration
         Schema::create('complaints', function (Blueprint $table) {
             $table->id();
             $table->string('block_name');
-            $table->string('room');
+            $table->string('room'); //change location to room
             $table->string('resource_type');
             $table->text('description')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();
+
+            $table->date('date');
+            $table->string('status')->default('pending');
+
         });
     }
 
