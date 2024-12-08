@@ -19,13 +19,13 @@ class ComplaintController extends Controller
 
             // Filter by priority (if requested)
             if ($request->has('priority') && $request->priority) {
-                $query->where('priority_level', $request->priority);
+                $query->where('priority', $request->priority);
             }
 
             // Sort by priority
             if ($request->has('sort')) {
                 $sortOrder = $request->sort === 'asc' ? 'asc' : 'desc';
-                $query->orderByRaw("FIELD(priority_level, 'High', 'Medium', 'Low') $sortOrder");
+                $query->orderByRaw("FIELD(priority, 'High', 'Medium', 'Low') $sortOrder");
             }
 
             $complaints = $query->get();
@@ -40,14 +40,14 @@ class ComplaintController extends Controller
     public function assignPriority(Request $request, $id)
     {
         $request->validate([
-            'priority_level' => 'required|string|in:High,Medium,Low', // Validate priority level
+            'priority' => 'required|string|in:High,Medium,Low', // Validate priority level
         ]);
 
         $complaint = Complaint::findOrFail($id);
-        $complaint->priority_level = $request->priority_level;
+        $complaint->priority = $request->priority;
         $complaint->save();
 
-        return redirect()->route('complaints.index')->with('success', 'Priority assigned successfully.');
+        return redirect()->route('staff.dashboard')->with('success', 'Complaint marked as resolved!');
     }
 
 

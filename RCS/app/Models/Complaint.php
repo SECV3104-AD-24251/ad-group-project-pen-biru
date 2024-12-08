@@ -12,7 +12,7 @@ class Complaint extends Model
         'resource_type',
         'description',
         'image',
-        'priority_level',
+        'priority',
     ];   
 
     // Define the relationship with ComplaintHistory

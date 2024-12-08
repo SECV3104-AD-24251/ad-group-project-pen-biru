@@ -12,7 +12,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('complaints', function (Blueprint $table) {
-            $table->string('priority_level')->nullable()->after('image');
+            $table->string('priority')->nullable()->after('image');
         });
     }
 
@@ -22,7 +22,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('complaints', function (Blueprint $table) {
-            $table->dropColumn('priority_level');
+            $table->dropColumn('priority');
         });
     }
 };

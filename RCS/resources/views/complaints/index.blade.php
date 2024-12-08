@@ -46,16 +46,16 @@
                                 No Image
                             @endif
                         </td>
-                        <td>{{ $complaint->priority_level ?? 'Not Assigned' }}</td>
+                        <td>{{ $complaint->priority ?? 'Not Assigned' }}</td>
                         <td>
                             <!-- Form to assign priority -->
                             <form action="{{ route('complaints.assignPriority', $complaint->id) }}" method="POST">
                                 @csrf
                                 <div class="input-group">
-                                    <select name="priority_level" class="form-select" required>
+                                    <select name="priority" class="form-select" required>
                                         <option value="" disabled selected>Select Priority</option>
                                         @foreach ($priorityLevels as $level)
-                                            <option value="{{ $level }}" {{ $complaint->priority_level == $level ? 'selected' : '' }}>
+                                            <option value="{{ $level }}" {{ $complaint->priority == $level ? 'selected' : '' }}>
                                                 {{ $level }}
                                             </option>
                                         @endforeach
