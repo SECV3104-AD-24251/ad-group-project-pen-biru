@@ -83,8 +83,7 @@
                 <tr>
                     <td>{{ $complaint->created_at }}</td>
                     <td>{{ $complaint->block_name }} , {{ $complaint->room }}</td>
-                    <td>{{ ucfirst($complaint->priority_level) ?? 'Not Assigned' }}</td>
-
+                    <td>{{ ucfirst($complaint->priority) }}</td>
                 </tr>
                 @empty
                 <tr>

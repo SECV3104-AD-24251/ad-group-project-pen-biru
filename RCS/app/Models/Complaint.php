@@ -12,5 +12,8 @@ class Complaint extends Model
         'resource_type',
         'description',
         'image',
+        'priority_level',
     ];
+
+    
 }
