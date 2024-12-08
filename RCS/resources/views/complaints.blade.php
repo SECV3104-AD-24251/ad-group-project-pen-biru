@@ -66,6 +66,11 @@
                 <a href="?sort=desc" class="btn btn-primary">Sort: Low to High</a>
             </div>
         </div>
+        @if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
 
         <!-- Table -->
         <table class="table table-bordered">
@@ -74,8 +79,7 @@
                     <th>Date</th>
                     <th>Location</th>
                     <th>Priority</th>
-                    <th>Status</th>
-
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -85,10 +89,65 @@
                     <td>{{ $complaint->block_name }} , {{ $complaint->room }}</td>
                     <td>{{ ucfirst($complaint->priority_level) ?? 'Not Assigned' }}</td>
 
+                    <td>{{ $complaint->block_name }}, {{ $complaint->room }}</td>
+                    <td>{{ ucfirst($complaint->priority) }}</td>
+                    <td>
+                        <!-- Action Button to Open Modal -->
+                        <button 
+                            type="button" 
+                            class="btn btn-info btn-sm" 
+                            data-bs-toggle="modal" 
+                            data-bs-target="#complaintModal{{ $complaint->id }}">
+                            View Details
+                        </button>
+                    </td>
                 </tr>
+
+                <!-- Modal -->
+                <div 
+                    class="modal fade" 
+                    id="complaintModal{{ $complaint->id }}" 
+                    tabindex="-1" 
+                    aria-labelledby="complaintModalLabel{{ $complaint->id }}" 
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="complaintModalLabel{{ $complaint->id }}">Complaint Details</h5>
+                                <button 
+                                    type="button" 
+                                    class="btn-close" 
+                                    data-bs-dismiss="modal" 
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p><strong>Block Name:</strong> {{ $complaint->block_name }}</p>
+                                <p><strong>Room:</strong> {{ $complaint->room }}</p>
+                                <p><strong>Date Created:</strong> {{ $complaint->created_at }}</p>
+                                <p><strong>Status:</strong> {{ ucfirst($complaint->status) }}</p>
+                                <p><strong>Description:</strong> {{ $complaint->description }}</p>
+                                @if ($complaint->image)
+                                <p><strong>Image:</strong></p>
+                                <img src="{{ asset('storage/' . $complaint->image) }}" alt="Complaint Image" class="img-fluid">
+                                @endif
+                            </div>
+                            <div class="modal-footer">
+                                <!-- Resolved Button -->
+                                <form method="POST" action="/complaints/{{ $complaint->id }}/resolve">
+                                    @csrf
+                                    <button type="submit" class="btn btn-success">Resolved!</button>
+                                </form>
+                                <button 
+                                    type="button" 
+                                    class="btn btn-secondary" 
+                                    data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 @empty
                 <tr>
-                    <td colspan="3" class="text-center">No complaints yet.</td>
+                    <td colspan="4" class="text-center">No complaints yet.</td>
                 </tr>
                 @endforelse
             </tbody>

@@ -20,6 +20,13 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->string('priority_level')->nullable(); // Added priority_level here
             $table->timestamps();
+            $table->string('priority')->nullable();
+            $table->string('status')->default('pending');
+            $table->timestamps();
+
+            //$table->date('date');
+            
+
         });
     }
 
