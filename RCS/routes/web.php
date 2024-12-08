@@ -48,3 +48,6 @@ Route::post('/complaints/{id}/resolve', function ($id) {
 
     return redirect()->route('complaints.index')->with('success', 'Complaint marked as resolved!');
 })->name('complaints.resolve');
+
+// Route to complaint status and history
+Route::get('/complaints/{id}/history', [ComplaintController::class, 'showHistory'])->name('complaints.history');

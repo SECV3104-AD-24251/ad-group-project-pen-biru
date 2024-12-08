@@ -13,7 +13,11 @@ class Complaint extends Model
         'description',
         'image',
         'priority_level',
-    ];
+    ];   
 
-    
+    // Define the relationship with ComplaintHistory
+    public function histories()
+    {
+        return $this->hasMany(ComplaintHistory::class, 'complaint_id');
+    }
 }

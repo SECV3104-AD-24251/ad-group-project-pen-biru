@@ -10,6 +10,7 @@
         <p style="color: green;">{{ session('success') }}</p>
     @endif
 
+    <!-- Complaint Form -->
     <form action="{{ route('complaints.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <label for="block_name">Block Name:</label>
@@ -44,5 +45,36 @@
 
         <button type="submit">Submit</button>
     </form>
+
+    <hr>
+
+    <!-- List of Complaints -->
+    <h2>Submitted Complaints</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Block Name</th>
+                <th>Room</th>
+                <th>Resource Type</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($complaints as $complaint)
+                <tr>
+                    <td>{{ $complaint->id }}</td>
+                    <td>{{ $complaint->block_name }}</td>
+                    <td>{{ $complaint->room }}</td>
+                    <td>{{ $complaint->resource_type }}</td>
+                    <td>{{ $complaint->status }}</td>
+                    <td>
+                        <a href="{{ route('complaints.history', $complaint->id) }}">Detail</a>
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
 </body>
 </html>
