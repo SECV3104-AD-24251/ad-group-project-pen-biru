@@ -44,14 +44,5 @@
 
         <button type="submit">Submit</button>
     </form>
-
-    <h2>Status of Resources</h2>
-    <ul>
-        @foreach($statuses as $status)
-            <li>{{ $status->status }} - {{ $status->created_at }} 
-                <a href="{{ route('complaints.history', $status->complaint_id) }}">Detail</a>
-            </li>
-        @endforeach
-    </ul>
 </body>
 </html>

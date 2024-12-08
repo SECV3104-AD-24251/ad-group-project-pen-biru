@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Complaint;
-use App\Models\ComplaintStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -11,14 +10,11 @@ class ComplaintController extends Controller
 {
     public function create()
     {
-        // Example blocks and resources data
-        $blocks = ['Block A', 'Block B', 'Block C'];
-        $resources = ['Projector', 'Chair', 'Table'];
+        // Pass options for dropdowns if necessary
+        $blocks = ['Block A', 'Block B', 'Block C']; // Example blocks
+        $resources = ['Projector', 'Chair', 'Table']; // Example resources
 
-        // Fetch the latest statuses for display
-        $statuses = ComplaintStatus::latest()->get();
-
-        return view('complaints.create', compact('blocks', 'resources', 'statuses'));
+        return view('complaints.create', compact('blocks', 'resources'));
     }
 
     public function store(Request $request)
@@ -34,26 +30,10 @@ class ComplaintController extends Controller
         if ($request->hasFile('image')) {
             $validated['image'] = $request->file('image')->store('images', 'public');
         }
-        
-        // Create the complaint
-        $complaint = Complaint::create($validated);
 
-        // Add an initial status record
-        ComplaintStatus::create([
-            'complaint_id' => $complaint->id,
-            'status' => 'pending', // Initial status
-        ]);
+        Complaint::create($validated);
 
         return redirect()->route('complaints.create')->with('success', 'Complaint submitted successfully!');
     }
-
-    public function showHistory($id)
-    {
-        // Retrieve the complaint and its status history
-        $complaint = Complaint::findOrFail($id);
-        $statuses = ComplaintStatus::where('complaint_id', $id)->get();
-
-        // Return the correct view path
-        return view('history', compact('complaint', 'statuses'));
-    }
 }
+
