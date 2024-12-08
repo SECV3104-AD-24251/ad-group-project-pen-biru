@@ -21,7 +21,22 @@ Route::get('/priority', [ComplaintController::class, 'index'])->name('complaints
 
 // Route to display complaints list (only pending complaints are shown)
 Route::get('/complaints', function () {
-    $query = Complaint::query()->where('status', 'pending'); // Show only pending complaints
+    $complaints = Complaint::where('status', 'pending')->get();
+    return view('complaints', compact('complaints'));
+})->name('complaints.index');
+
+Route::post('/complaints/{id}/resolve', function ($id) {
+    $complaint = Complaint::findOrFail($id);
+    $complaint->status = 'resolved';
+    $complaint->save();
+
+    return redirect()->route('complaints.index')->with('success', 'Complaint marked as resolved!');
+})->name('complaints.resolve');
+
+/* sorting and filtering Features */
+
+Route::get('/complaints', function () {
+    $query = Complaint::where('status', 'pending'); // Show only pending complaints
 
     // Apply filtering by priority
     if (request()->has('priority') && request()->priority) {
@@ -30,15 +45,16 @@ Route::get('/complaints', function () {
 
     // Apply sorting by priority
     if (request()->has('sort') && request()->sort === 'asc') {
-        $query->orderBy('priority', 'asc');
+        $query->orderBy('priority', 'asc'); // Sort priority from low to high
     } elseif (request()->has('sort') && request()->sort === 'desc') {
-        $query->orderBy('priority', 'desc');
+        $query->orderBy('priority', 'desc'); // Sort priority from high to low
     }
 
     $complaints = $query->get();
 
     return view('complaints', compact('complaints'));
 })->name('complaints.index');
+
 
 // Route to mark a complaint as resolved
 Route::post('/complaints/{id}/resolve', function ($id) {

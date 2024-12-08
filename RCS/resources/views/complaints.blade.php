@@ -62,15 +62,16 @@
                 </div>
 
                 <!-- Sort Buttons -->
-                <a href="?sort=asc" class="btn btn-primary">Sort: High to Low</a>
-                <a href="?sort=desc" class="btn btn-primary">Sort: Low to High</a>
+                <a href="?sort=desc" class="btn btn-primary">Sort: High to Low</a>
+                <a href="?sort=asc" class="btn btn-primary">Sort: Low to High</a>
             </div>
         </div>
+
         @if (session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-@endif
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+        @endif
 
         <!-- Table -->
         <table class="table table-bordered">
@@ -86,9 +87,6 @@
                 @forelse ($complaints as $complaint)
                 <tr>
                     <td>{{ $complaint->created_at }}</td>
-                    <td>{{ $complaint->block_name }} , {{ $complaint->room }}</td>
-                    <td>{{ ucfirst($complaint->priority_level) ?? 'Not Assigned' }}</td>
-
                     <td>{{ $complaint->block_name }}, {{ $complaint->room }}</td>
                     <td>{{ ucfirst($complaint->priority) }}</td>
                     <td>
@@ -124,12 +122,12 @@
                                 <p><strong>Block Name:</strong> {{ $complaint->block_name }}</p>
                                 <p><strong>Room:</strong> {{ $complaint->room }}</p>
                                 <p><strong>Date Created:</strong> {{ $complaint->created_at }}</p>
-                                <p><strong>Status:</strong> {{ ucfirst($complaint->status) }}</p>
                                 <p><strong>Description:</strong> {{ $complaint->description }}</p>
                                 @if ($complaint->image)
                                 <p><strong>Image:</strong></p>
                                 <img src="{{ asset('storage/' . $complaint->image) }}" alt="Complaint Image" class="img-fluid">
                                 @endif
+                                <p><strong>Status:</strong> {{ ucfirst($complaint->status) }}</p>
                             </div>
                             <div class="modal-footer">
                                 <!-- Resolved Button -->
