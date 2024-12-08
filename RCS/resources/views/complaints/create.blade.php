@@ -2,79 +2,100 @@
 <html>
 <head>
     <title>Submit Complaint</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
+    <style>
+        .container {
+            margin: 20px auto;
+            max-width: 80%;
+        }
+        .table-container {
+            margin-top: 30px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Submit a Complaint</h1>
+    <div class="container">
+        <h1 class="text-center mb-4">Submit a Complaint</h1>
 
-    @if(session('success'))
-        <p style="color: green;">{{ session('success') }}</p>
-    @endif
+        @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+        @endif
 
-    <!-- Complaint Form -->
-    <form action="{{ route('complaints.store') }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        <label for="block_name">Block Name:</label>
-        <select name="block_name" id="block_name" required>
-            <option value="">Select a block</option>
-            @foreach($blocks as $block)
-                <option value="{{ $block }}">{{ $block }}</option>
-            @endforeach
-        </select>
-        <br>
+        <!-- Complaint Form -->
+        <form action="{{ route('complaints.store') }}" method="POST" enctype="multipart/form-data" class="mb-4">
+            @csrf
+            <div class="mb-3">
+                <label for="block_name" class="form-label">Block Name:</label>
+                <select name="block_name" id="block_name" class="form-select" required>
+                    <option value="">Select a block</option>
+                    @foreach($blocks as $block)
+                        <option value="{{ $block }}">{{ $block }}</option>
+                    @endforeach
+                </select>
+            </div>
 
-        <label for="room">Room:</label>
-        <input type="text" name="room" id="room" required>
-        <br>
+            <div class="mb-3">
+                <label for="room" class="form-label">Room:</label>
+                <input type="text" name="room" id="room" class="form-control" required>
+            </div>
 
-        <label for="resource_type">Resource Type:</label>
-        <select name="resource_type" id="resource_type" required>
-            <option value="">Select a resource</option>
-            @foreach($resources as $resource)
-                <option value="{{ $resource }}">{{ $resource }}</option>
-            @endforeach
-        </select>
-        <br>
+            <div class="mb-3">
+                <label for="resource_type" class="form-label">Resource Type:</label>
+                <select name="resource_type" id="resource_type" class="form-select" required>
+                    <option value="">Select a resource</option>
+                    @foreach($resources as $resource)
+                        <option value="{{ $resource }}">{{ $resource }}</option>
+                    @endforeach
+                </select>
+            </div>
 
-        <label for="description">Description:</label>
-        <textarea name="description" id="description"></textarea>
-        <br>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description:</label>
+                <textarea name="description" id="description" class="form-control"></textarea>
+            </div>
 
-        <label for="image">Upload an Image:</label>
-        <input type="file" name="image" id="image">
-        <br>
+            <div class="mb-3">
+                <label for="image" class="form-label">Upload an Image:</label>
+                <input type="file" name="image" id="image" class="form-control">
+            </div>
 
-        <button type="submit">Submit</button>
-    </form>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
 
-    <hr>
+        <!-- List of Complaints -->
+        <div class="table-container">
+            <h2>Submitted Complaints</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Block Name</th>
+                        <th>Room</th>
+                        <th>Resource Type</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($complaints as $complaint)
+                    <tr>
+                        <td>{{ $complaint->id }}</td>
+                        <td>{{ $complaint->block_name }}</td>
+                        <td>{{ $complaint->room }}</td>
+                        <td>{{ $complaint->resource_type }}</td>
+                        <td>{{ ucfirst($complaint->status) }}</td>
+                        <td>
+                            <a href="{{ route('complaints.history', $complaint->id) }}" class="btn btn-info btn-sm">Detail</a>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-    <!-- List of Complaints -->
-    <h2>Submitted Complaints</h2>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Block Name</th>
-                <th>Room</th>
-                <th>Resource Type</th>
-                <th>Status</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($complaints as $complaint)
-                <tr>
-                    <td>{{ $complaint->id }}</td>
-                    <td>{{ $complaint->block_name }}</td>
-                    <td>{{ $complaint->room }}</td>
-                    <td>{{ $complaint->resource_type }}</td>
-                    <td>{{ $complaint->status }}</td>
-                    <td>
-                        <a href="{{ route('complaints.history', $complaint->id) }}">Detail</a>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
