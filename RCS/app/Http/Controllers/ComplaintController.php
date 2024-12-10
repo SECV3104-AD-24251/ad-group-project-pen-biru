@@ -44,10 +44,21 @@ class ComplaintController extends Controller
         ]);
 
         $complaint = Complaint::findOrFail($id);
+        $oldPriority = $complaint->priority;
+
+        // Update the complaint's priority
         $complaint->priority = $request->priority;
         $complaint->save();
 
-        return redirect()->route('staff.dashboard')->with('success', 'Complaint marked as resolved!');
+        // Log the change in history
+        ComplaintHistory::create([
+            'complaint_id' => $complaint->id,
+            'status' => $complaint->status,
+            'remarks' => "Priority updated from $oldPriority to {$complaint->priority}",
+            'changed_at' => now(),
+        ]);
+
+        return redirect()->route('staff.dashboard')->with('success', 'Priority updated successfully.');
     }
 
 
@@ -127,7 +138,7 @@ class ComplaintController extends Controller
         $complaint->status = $request->input('status');
         $complaint->save();
 
-        // Add the status change to the complaint history
+        // Create history
         ComplaintHistory::create([
             'complaint_id' => $complaint->id,  // Link the history to the complaint
             'status' => $request->input('status'),
