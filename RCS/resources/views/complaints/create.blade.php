@@ -3,6 +3,7 @@
 <head>
     <title>Submit Complaint</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
     <style>
         .container {
             margin: 20px auto;
@@ -87,8 +88,13 @@
                         <td>{{ $complaint->resource_type }}</td>
                         <td>{{ ucfirst($complaint->status) }}</td>
                         <td>
-                            <a href="{{ route('complaints.history', $complaint->id) }}" class="btn btn-info btn-sm">Detail</a>
-                        </td>
+                        <a href="#" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#historyModal" data-id="{{ $complaint->id }}">Detail</a>
+                            <form action="{{ route('complaints.destroy', $complaint->id) }}" method="POST" style="display:inline-block;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this complaint?')">Delete</button>
+                            </form>
+                        </td>                       
                     </tr>
                     @endforeach
                 </tbody>
@@ -96,6 +102,42 @@
         </div>
     </div>
 
+    <div class="modal fade" id="historyModal" tabindex="-1" aria-labelledby="historyModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="historyModalLabel">Complaint History</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- History content will be loaded here dynamically -->
+                    <div id="modalHistoryContent">Loading...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const modal = document.getElementById('historyModal');
+            modal.addEventListener('show.bs.modal', function (event) {
+                const button = event.relatedTarget; // Button that triggered the modal
+                const complaintId = button.getAttribute('data-id'); // Extract info from data-* attributes
+                
+                // Use AJAX to fetch the history content
+                fetch(`/complaints/${complaintId}/history`)
+                    .then(response => response.text())
+                    .then(html => {
+                        document.getElementById('modalHistoryContent').innerHTML = html;
+                    })
+                    .catch(error => {
+                        document.getElementById('modalHistoryContent').innerHTML = 'Error loading history.';
+                        console.error('Error:', error);
+                    });
+            });
+        });
+    </script>
 </body>
 </html>

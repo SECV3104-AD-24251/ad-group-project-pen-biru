@@ -148,11 +148,28 @@ class ComplaintController extends Controller
 
         return redirect()->back()->with('success', 'Status updated and history recorded.');
     }
-
+    
+    //show history
     public function showHistory($id)
     {
-        $complaint = Complaint::with('histories')->findOrFail($id); // Eager load the history for the complaint
-        return view('complaints.history', compact('complaint'));
+        $complaint = Complaint::with('histories')->findOrFail($id);
+        return view('partials.history', compact('complaint'));
+    }
+
+
+    //delete button
+    public function destroy($id)
+    {
+        // Find the complaint
+        $complaint = Complaint::findOrFail($id);
+
+        // Delete associated histories
+        ComplaintHistory::where('complaint_id', $complaint->id)->delete();
+
+        // Delete the complaint itself
+        $complaint->delete();
+
+        return redirect()->route('complaints.create')->with('success', 'Complaint deleted successfully.');
     }
 
 }

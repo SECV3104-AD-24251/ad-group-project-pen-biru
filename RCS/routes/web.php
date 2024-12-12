@@ -51,3 +51,6 @@ Route::post('/complaints/{id}/resolve', function ($id) {
 
 // Route to complaint status and history
 Route::get('/complaints/{id}/history', [ComplaintController::class, 'showHistory'])->name('complaints.history');
+
+//route to delete the complaint
+Route::delete('/complaints/{id}', [ComplaintController::class, 'destroy'])->name('complaints.destroy');
