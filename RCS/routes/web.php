@@ -54,3 +54,5 @@ Route::get('/complaints/{id}/history', [ComplaintController::class, 'showHistory
 
 //route to delete the complaint
 Route::delete('/complaints/{id}', [ComplaintController::class, 'destroy'])->name('complaints.destroy');
+
+Route::get('/complaints/resolved', [ComplaintController::class, 'getResolvedComplaints']);

@@ -172,5 +172,23 @@ class ComplaintController extends Controller
         return redirect()->route('complaints.create')->with('success', 'Complaint deleted successfully.');
     }
 
+    public function getResolvedComplaints()
+    {
+        $resolvedComplaints = Complaint::where('status', 'resolved')->get();
+
+        return response()->json($resolvedComplaints);
+
+        // Ensure priority defaults to 'Low' if it's not set
+        $complaints = Complaint::where('status', 'resolved')
+        ->get()
+        ->map(function ($complaint) {
+            $complaint->priority = $complaint->priority ?? 'N/A';
+            return $complaint;
+        });
+
+        return response()->json($complaints);
+
+    }
+
 }
 
