@@ -19,26 +19,30 @@ Route::get('/staff-dashboard', [ComplaintController::class, 'index'])->name('sta
 // Route to assign a priority level to a complaint
 Route::post('/complaints/{id}/assign-priority', [ComplaintController::class, 'assignPriority'])->name('complaints.assignPriority');
 
-// Route to display pending complaints
-Route::get('/complaints', function () {
-    $complaints = Complaint::where('status', 'pending')->get();
-    return view('complaints', compact('complaints'));
-})->name('complaints.pending');
 
-// Route for filtering and sorting
-Route::get('/complaints/filter', function () {
-    $query = Complaint::where('status', 'pending');
+Route::get('/complaints', function () {
+    $query = Complaint::where('status', 'pending'); // Only show pending complaints
+
+    // Apply filtering by priority (if requested)
     if (request()->has('priority') && request()->priority) {
         $query->where('priority', request()->priority);
     }
-    if (request()->has('sort') && request()->sort === 'asc') {
-        $query->orderBy('priority', 'asc');
-    } elseif (request()->has('sort') && request()->sort === 'desc') {
-        $query->orderBy('priority', 'desc');
+
+    // Apply sorting by priority
+    if (request()->has('sort')) {
+        $sortOrder = request()->sort === 'asc' ? 'asc' : 'desc';
+        $query->orderByRaw("FIELD(LOWER(priority), 'low', 'medium', 'high') $sortOrder");
     }
+
+    // Fetch the complaints
     $complaints = $query->get();
-    return view('complaints', compact('complaints'));
-})->name('complaints.filter');
+
+    // Define priority levels for the dropdown
+    $priorityLevels = ['Low', 'Medium', 'High'];
+
+    return view('complaints', compact('complaints', 'priorityLevels'));
+})->name('complaints.index');
+
 
 // Route to mark a complaint as resolved
 Route::post('/complaints/{id}/resolve', function ($id) {

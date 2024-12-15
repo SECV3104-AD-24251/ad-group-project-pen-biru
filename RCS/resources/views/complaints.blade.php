@@ -55,15 +55,16 @@
                     </button>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="?priority=high">High</a></li>
-                        <li><a class="dropdown-item" href="?priority=normal">Normal</a></li>
+                        <li><a class="dropdown-item" href="?priority=medium">Medium</a></li>
                         <li><a class="dropdown-item" href="?priority=low">Low</a></li>
                         <li><a class="dropdown-item" href="/complaints">Clear Filter</a></li>
                     </ul>
                 </div>
 
                 <!-- Sort Buttons -->
-                <a href="?sort=desc" class="btn btn-primary">Sort: High to Low</a>
-                <a href="?sort=asc" class="btn btn-primary">Sort: Low to High</a>
+                <a href="{{ route('complaints.index', ['sort' => 'desc']) }}" class="btn btn-primary">Sort:High to Low </a>
+                <a href="{{ route('complaints.index', ['sort' => 'asc']) }}" class="btn btn-primary">Sort:Low to High </a>
+
             </div>
         </div>
 
