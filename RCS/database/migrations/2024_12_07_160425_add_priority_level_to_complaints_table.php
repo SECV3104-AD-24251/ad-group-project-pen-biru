@@ -9,20 +9,22 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('complaints', function (Blueprint $table) {
-            $table->string('priority')->nullable()->after('image');
+            if (!Schema::hasColumn('complaints', 'priority_level')) {
+                $table->string('priority_level')->nullable()->after('image');
+            }
         });
     }
 
     /**
      * Reverse the migrations.
      */
-    public function down()
+    public function down(): void
     {
         Schema::table('complaints', function (Blueprint $table) {
-            $table->dropColumn('priority');
+            $table->dropColumn('priority_level');
         });
     }
 };

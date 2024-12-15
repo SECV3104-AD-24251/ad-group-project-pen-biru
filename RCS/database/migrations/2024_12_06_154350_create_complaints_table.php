@@ -9,7 +9,7 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('complaints', function (Blueprint $table) {
             $table->id();
@@ -18,22 +18,17 @@ return new class extends Migration
             $table->string('resource_type');
             $table->text('description')->nullable();
             $table->string('image')->nullable();
-            $table->string('priority_level')->nullable(); // Added priority_level here
-            $table->timestamps();
+            $table->string('priority_level')->nullable();
             $table->string('priority')->nullable();
             $table->string('status')->default('pending');
-            $table->timestamps();
-
-            //$table->date('date');
-            
-
+            $table->timestamps(); // Correctly adds created_at and updated_at
         });
     }
 
     /**
      * Reverse the migrations.
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('complaints');
     }

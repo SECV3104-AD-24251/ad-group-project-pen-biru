@@ -11,16 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Drop the table if it exists
-        Schema::dropIfExists('complaint_histories');
-
-        // Create the table with the correct columns
         Schema::create('complaint_histories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('complaint_id')->constrained('complaints')->onDelete('cascade'); // Foreign key to complaint
-            $table->string('status');  // Add status column
-            $table->text('remarks')->nullable();  // Add remarks column (nullable)
-            $table->timestamp('changed_at');  // Add changed_at column
+            $table->foreignId('complaint_id')->constrained('complaints')->onDelete('cascade');
+            $table->string('status');
+            $table->text('remarks')->nullable();
+            $table->timestamp('changed_at');
             $table->timestamps();
         });
     }
@@ -30,7 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        // Drop the table if rolling back
         Schema::dropIfExists('complaint_histories');
     }
 };
