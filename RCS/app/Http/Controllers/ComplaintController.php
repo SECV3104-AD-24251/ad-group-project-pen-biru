@@ -6,6 +6,8 @@ use App\Models\Complaint;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\ComplaintHistory;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\ScheduleImport;
 
 
 class ComplaintController extends Controller
@@ -185,6 +187,30 @@ class ComplaintController extends Controller
 
         return response()->json($complaints);
 
+    }
+
+    /*-------------------------------------------------------------------*/
+    // upload schedule controller
+    public function showUploadPage()
+    {
+        return view('upload-schedule');
+    }
+
+    public function importSchedule(Request $request)
+    {
+        // Validate the uploaded file
+        $request->validate([
+            'file' => 'required|file|mimes:xlsx,xls',
+        ]);
+
+        try {
+            // Import the Excel file into the database
+            Excel::import(new ScheduleImport, $request->file('file'));
+
+            return redirect()->back()->with('success', 'Schedule imported successfully!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error importing schedule: ' . $e->getMessage());
+        }
     }
 
 }

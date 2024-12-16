@@ -8,6 +8,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+    <!-- Top Bar -->
+    <div class="bg-light p-3 mb-4 border-bottom d-flex justify-content-between align-items-center">
+        <h3 class="mb-0">Staff Dashboard</h3>
+        <a href="{{ route('upload.page') }}" class="btn btn-primary">Upload Schedule</a>
+    </div>
     <div class="container mt-5">
         <h1 class="mb-4">Complaints List</h1>
 

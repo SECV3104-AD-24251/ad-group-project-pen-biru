@@ -59,4 +59,9 @@ Route::get('/complaints/{id}/history', [ComplaintController::class, 'showHistory
 //route to delete the complaint
 Route::delete('/complaints/{id}', [ComplaintController::class, 'destroy'])->name('complaints.destroy');
 
+//Route to view resolved complaint
 Route::get('/complaints/resolved', [ComplaintController::class, 'getResolvedComplaints']);
+
+//Route to upload schedule
+Route::get('/upload', [ComplaintController::class, 'showUploadPage'])->name('upload.page');
+Route::post('/upload', [ComplaintController::class, 'importSchedule'])->name('upload.schedule');
