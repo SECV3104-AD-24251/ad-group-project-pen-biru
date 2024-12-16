@@ -14,25 +14,31 @@ class ComplaintController extends Controller
      * Display a listing of the complaints.
      */
     public function index(Request $request)
-        {
-            $query = Complaint::query();
+{
+    $query = Complaint::query();
 
-            // Filter by priority (if requested)
-            if ($request->has('priority') && $request->priority) {
-                $query->where('priority', $request->priority);
-            }
+    // Filter by priority (if requested)
+    if ($request->has('priority') && $request->priority) {
+        $query->where('priority', $request->priority);
+    }
 
-            // Sort by priority
-            if ($request->has('sort')) {
-                $sortOrder = $request->sort === 'asc' ? 'asc' : 'desc';
-                $query->orderByRaw("FIELD(priority, 'High', 'Medium', 'Low') $sortOrder");
-            }
+    // Sort by priority
+    if ($request->has('sort')) {
+        $sortOrder = $request->sort === 'asc' ? 'asc' : 'desc';
+        // Use FIELD to sort by the custom priority order
+        $query->orderByRaw("FIELD(LOWER(priority), 'low', 'medium', 'high') $sortOrder");
 
-            $complaints = $query->get();
-            $priorityLevels = ['High', 'Medium', 'Low'];
+    }
 
-            return view('complaints.index', compact('complaints', 'priorityLevels'));
-        }
+    // Fetch complaints based on the filters and sorting
+    $complaints = $query->get();
+
+    // Define priority levels for dropdown filter in the view
+    $priorityLevels = ['Low', 'Medium', 'High'];
+
+    return view('complaints.index', compact('complaints', 'priorityLevels'));
+}
+
 
     /**
      * Assign a priority level to a complaint.
@@ -60,15 +66,6 @@ class ComplaintController extends Controller
 
         return redirect()->route('staff.dashboard')->with('success', 'Priority updated successfully.');
     }
-
-
-
-
-
-
-
-
-
 
 
 
