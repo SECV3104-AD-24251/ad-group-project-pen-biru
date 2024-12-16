@@ -78,7 +78,7 @@ class ComplaintController extends Controller
         $complaints = Complaint::all(); // Fetching all complaints to display in the table
         // Pass options for dropdowns if necessary
         $blocks = ['Block A', 'Block B', 'Block C']; // Example blocks
-        $resources = ['Projector', 'Chair', 'Table']; // Example resources
+        $resources = ['Projector', 'Chair', 'Table','PC','Monitor','Network']; // Example resources
 
         return view('complaints.create', compact('blocks', 'resources', 'complaints'));
     }
