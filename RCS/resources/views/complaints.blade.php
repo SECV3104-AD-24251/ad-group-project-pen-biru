@@ -207,29 +207,30 @@
                                 <tbody>
                         `;
                         data.forEach(complaint => {
-                            const date = new Date(complaint.created_at);
+    const date = new Date(complaint.created_at);
 
-                            // Format the date into a readable format
-                            const formattedDate = date.toLocaleString('en-US', {
-                                year: 'numeric',
-                                month: 'short',
-                                day: '2-digit',
-                                hour: '2-digit',
-                                minute: '2-digit',
-                                hour12: true, // Ensures AM/PM format
-                            });
+    // Format the date into a readable format
+    const formattedDate = date.toLocaleString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true, // Ensures AM/PM format
+    });
 
-                            html += `
-                                <tr>
-                                    <td>${formattedDate}</td>
-                                    <td>${complaint.block_name}</td>
-                                    <td>${complaint.room}</td>
-                                    <td>${complaint.priority || 'N/A'}</td>
-                                    <td>${complaint.description || 'N/A'}</td>
-                                    <td>${complaint.status}</td>
-                                </tr>
-                            `;
-                        });
+    html += `
+        <tr>
+            <td>${formattedDate}</td>
+            <td>${complaint.block_name}</td>
+            <td>${complaint.room}</td>
+            <td>${complaint.priority || 'N/A'}</td>
+            <td>${complaint.description || 'N/A'}</td>
+            <td>${complaint.status}</td>
+        </tr>
+    `;
+});
+
                         html += '</tbody></table>';
                         contentDiv.innerHTML = html;
                     } else {
