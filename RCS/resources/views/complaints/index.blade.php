@@ -6,6 +6,22 @@
     <title>Complaints List</title>
     <!-- Add Bootstrap CSS for styling -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Set table background with 50% opacity */
+        .table-opacity {
+            background-color: rgba(255, 255, 255, 0.1); /* White with 50% opacity */
+        }
+
+        /* Optional: Style table headers for contrast */
+        .table thead th {
+            background-color: rgba(0, 0, 0, 0.3); /* Black with 30% opacity */
+            color: white; /* Text color */
+        }
+
+        h1 {
+            color: white;
+        }
+    </style>
 
 
 </head>
@@ -20,7 +36,7 @@
             </div>
         @endif
 
-        <table class="table table-bordered table-striped">
+        <table class="table table-bordered table-striped table-opacity" >
             <thead>
                 <tr>
                     <th>ID</th>
