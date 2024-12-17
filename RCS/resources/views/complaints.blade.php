@@ -4,10 +4,24 @@
     <title>Technician UI - List of Complaints</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
     <style>
-        .table-container {
-            margin: 20px auto;
-            max-width: 90%;
-        }
+
+    body {
+        background-image: url('/images/complaintbg.jpg');
+        background-size: cover; /* Ensures the image covers the entire viewport */
+        background-repeat: no-repeat; /* Prevents tiling of the image */
+        background-position: center; /* Centers the image */
+        font-family: Arial, sans-serif; /* Ensures text remains legible */
+    }
+
+    .table-container {
+        background-color: rgba(255, 255, 255, 0.8); /* Adds a semi-transparent white background for readability */
+        border-radius: 10px; /* Rounds the corners */
+        padding: 20px;
+        margin: 20px auto;
+        max-width: 90%;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow for better visibility */
+    }
+
         .top-bar {
             display: flex;
             justify-content: space-between;
