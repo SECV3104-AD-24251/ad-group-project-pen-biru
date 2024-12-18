@@ -6,6 +6,7 @@ use App\Models\Complaint;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\ComplaintHistory;
+use App\Models\ResourceDetail;
 
 
 class ComplaintController extends Controller
@@ -71,13 +72,12 @@ class ComplaintController extends Controller
 
     public function create()
     {
-        // Fetch all complaints (or apply any necessary filtering)
-        $complaints = Complaint::all(); // Fetching all complaints to display in the table
-        // Pass options for dropdowns if necessary
-        $blocks = ['Block A', 'Block B', 'Block C']; // Example blocks
-        $resources = ['Projector', 'Chair', 'Table','PC','Monitor','Network']; // Example resources
+        $blocks = ['Block A', 'Block B', 'Block C'];
+        $resources = ['Projector', 'Chair', 'Table', 'PC', 'Monitor', 'Network'];
+        $complaints = Complaint::all();
+        $details = ResourceDetail::all(); // Fetch all possible resource details
 
-        return view('complaints.create', compact('blocks', 'resources', 'complaints'));
+        return view('complaints.create', compact('blocks', 'resources', 'complaints', 'details'));
     }
 
     public function store(Request $request)
@@ -87,24 +87,42 @@ class ComplaintController extends Controller
             'block_name' => 'required|string',
             'room' => 'required|string',
             'resource_type' => 'required|string',
+            'details' => 'required|integer', // This will be the ID from resource_details table
             'description' => 'nullable|string',
             'image' => 'nullable|image|max:2048',
         ]);
+
+        // Fetch severity from ResourceDetail based on the selected 'details' ID
+        $resourceDetail = ResourceDetail::find($validated['details']);
+        if (!$resourceDetail) {
+            return back()->withErrors('Invalid resource details selection.');
+        }
+
+        // Add severity to the validated data
+        $validated['severity'] = $resourceDetail->severity;
 
         // Handle the image upload if it exists
         if ($request->hasFile('image')) {
             $validated['image'] = $request->file('image')->store('images', 'public');
         }
 
-        // Create the complaint and assign it to a variable
-        $complaint = Complaint::create($validated);
-        
+        // Create the complaint
+        $complaint = Complaint::create([
+            'block_name' => $validated['block_name'],
+            'room' => $validated['room'],
+            'resource_type' => $validated['resource_type'],
+            'description' => $validated['description'],
+            'image' => $validated['image'] ?? null,
+            'severity' => $validated['severity'],
+            'details' => $validated['details'], // Save the detail ID as a reference
+        ]);
+
         // Create a history entry for the newly created complaint
         ComplaintHistory::create([
-            'complaint_id' => $complaint->id,   // Use the newly created complaint's ID
-            'status' => 'Pending',               // Set the initial status
-            'remarks' => 'Complaint submitted',  // Set initial remarks
-            'changed_at' => now(),               // Timestamp of when the status was changed
+            'complaint_id' => $complaint->id,
+            'status' => 'Pending',
+            'remarks' => 'Complaint submitted',
+            'changed_at' => now(),
         ]);
 
         // Redirect back with a success message
@@ -150,7 +168,7 @@ class ComplaintController extends Controller
     public function showHistory($id)
     {
         $complaint = Complaint::with('histories')->findOrFail($id);
-        return view('partials.history', compact('complaint'));
+        return view('partials.history_table', compact('complaint'))->render();
     }
 
 
@@ -187,5 +205,42 @@ class ComplaintController extends Controller
 
     }
 
+    /*-------------------------------------------------------------------*/
+    //Fetch details for severity level
+    public function fetchDetails(Request $request)
+    {
+        $resourceType = $request->input('resource_type');
+        
+        // Fetch the relevant resource details
+        $details = ResourceDetail::where('resource_type', $resourceType)->get(['id', 'detail', 'severity']);
+        
+        return response()->json($details);
+    }
+    
+    //Pass Data to View to vbe process and display priority suggestion
+    // Controller
+    public function showSuggest()
+    {
+        $complaints = Complaint::with('resourceDetail')->get(); // Eager load the related resourceDetail
+
+        // Define priority levels based on severity
+        foreach ($complaints as $complaint) {
+            $severity = $complaint->resourceDetail->severity ?? null; // Fetch severity from the related resourceDetail
+            
+            if ($severity == 1) {
+                $complaint->suggested_priority = 'Low';
+            } elseif ($severity == 2) {
+                $complaint->suggested_priority = 'Medium';
+            } elseif ($severity == 3) {
+                $complaint->suggested_priority = 'High';
+            } else {
+                $complaint->suggested_priority = 'Not Available';
+            }
+        }
+
+        $priorityLevels = ['Low', 'Medium', 'High']; // Define priority levels
+
+        return view('staff-dashboard.index', compact('complaints', 'priorityLevels'));
+    }
 }
 

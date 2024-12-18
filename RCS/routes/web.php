@@ -58,5 +58,10 @@ Route::get('/complaints/{id}/history', [ComplaintController::class, 'showHistory
 
 //route to delete the complaint
 Route::delete('/complaints/{id}', [ComplaintController::class, 'destroy'])->name('complaints.destroy');
-
+//Route to get resolved complaint
 Route::get('/complaints/resolved', [ComplaintController::class, 'getResolvedComplaints']);
+//Route to get details
+Route::get('/resource/details', [ComplaintController::class, 'fetchDetails'])->name('resource.details');
+
+//Route to make priotity suggestion
+Route::get('/complaints/show-suggest', [ComplaintController::class, 'showSuggest'])->name('complaints.showSuggest');

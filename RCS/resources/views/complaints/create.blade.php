@@ -13,6 +13,7 @@
             margin-top: 30px;
         }
     </style>
+    <!-- Include Vite CSS and JS -->
 </head>
 <body>
     <div class="container">
@@ -42,16 +43,28 @@
                 <input type="text" name="room" id="room" class="form-control" required>
             </div>
 
+            <!-- Resource Type Dropdown -->
             <div class="mb-3">
-                <label for="resource_type" class="form-label">Resource Type:</label>
-                <select name="resource_type" id="resource_type" class="form-select" required>
-                    <option value="">Select a resource</option>
-                    @foreach($resources as $resource)
-                        <option value="{{ $resource }}">{{ $resource }}</option>
-                    @endforeach
-                </select>
-            </div>
+    <label for="resource_type" class="form-label">Resource Type:</label>
+    <select name="resource_type" id="resource_type" class="form-select" required>
+        <option value="">Select a resource</option>
+        @foreach($resources as $resource)
+            <option value="{{ $resource }}">{{ $resource }}</option>
+        @endforeach
+    </select>
+</div>
 
+    <div class="mb-3">
+        <label for="details" class="form-label">Details:</label>
+        <select name="details" id="details" class="form-select" required>
+            <option value="">Select Details</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="severity" class="form-label">Severity:</label>
+        <input type="text" name="severity" id="severity" class="form-control" readonly>
+    </div>
             <div class="mb-3">
                 <label for="description" class="form-label">Description:</label>
                 <textarea name="description" id="description" class="form-control"></textarea>
@@ -88,7 +101,7 @@
                         <td>{{ $complaint->resource_type }}</td>
                         <td>{{ ucfirst($complaint->status) }}</td>
                         <td>
-                        <a href="#" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#historyModal" data-id="{{ $complaint->id }}">Detail</a>
+                            <a href="#" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#historyModal" data-id="{{ $complaint->id }}">Detail</a>
                             <form action="{{ route('complaints.destroy', $complaint->id) }}" method="POST" style="display:inline-block;">
                                 @csrf
                                 @method('DELETE')
@@ -102,6 +115,7 @@
         </div>
     </div>
 
+    <!-- Complaint History Modal -->
     <div class="modal fade" id="historyModal" tabindex="-1" aria-labelledby="historyModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -109,35 +123,15 @@
                     <h5 class="modal-title" id="historyModalLabel">Complaint History</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <!-- History content will be loaded here dynamically -->
-                    <div id="modalHistoryContent">Loading...</div>
+                <div class="modal-body" id="history-container">
+                    <!-- Content will be dynamically loaded here -->
+                    <p>Loading...</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const modal = document.getElementById('historyModal');
-            modal.addEventListener('show.bs.modal', function (event) {
-                const button = event.relatedTarget; // Button that triggered the modal
-                const complaintId = button.getAttribute('data-id'); // Extract info from data-* attributes
-                
-                // Use AJAX to fetch the history content
-                fetch(`/complaints/${complaintId}/history`)
-                    .then(response => response.text())
-                    .then(html => {
-                        document.getElementById('modalHistoryContent').innerHTML = html;
-                    })
-                    .catch(error => {
-                        document.getElementById('modalHistoryContent').innerHTML = 'Error loading history.';
-                        console.error('Error:', error);
-                    });
-            });
-        });
-    </script>
+    <!-- JavaScript for Dynamic Details Dropdown -->
+    @vite(['resources/js/app.js', 'resources/css/app.css'])
 </body>
 </html>

@@ -46,6 +46,7 @@
                     <th>Description</th>
                     <th>Image</th>
                     <th>Priority Level</th>
+                    <th></th>
                     <th>Assign Priority</th>
                 </tr>
             </thead>
@@ -65,6 +66,21 @@
                             @endif
                         </td>
                         <td>{{ $complaint->priority ?? 'Not Assigned' }}</td>
+                        <!-- <td>
+                            //Display Suggested Priority based on Severity
+                            <span class="text-info">
+                                Suggested Priority: {{ $complaint->suggestedPriority }}
+                            </span>
+                        </td> -->
+                        <!-- Display Suggested Priority based on Severity -->
+                        <td>
+                            @if (isset($complaint->suggested_priority))
+                                Suggested Priority: {{ $complaint->suggested_priority }}
+                            @else
+                                Suggested Priority: Not Available
+                            @endif
+                        </td>
+                     
                         <td>
                             <!-- Form to assign priority -->
                             <form action="{{ route('complaints.assignPriority', $complaint->id) }}" method="POST">

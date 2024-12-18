@@ -14,7 +14,9 @@ class Complaint extends Model
         'description',
         'image',
         'priority',
-    ];   
+        'severity', 
+        'details',  
+    ];     
 
     // Define the relationship with ComplaintHistory
     public function histories()
@@ -39,4 +41,26 @@ class Complaint extends Model
             }
         });
     }
+    //Create priority Suggestion for staff
+    public function getSuggestedPriorityAttribute()
+    {
+        switch ($this->severity) {
+            case 1:
+                return 'Low Priority';
+            case 2:
+                return 'Medium Priority';
+            case 3:
+                return 'High Priority';
+            default:
+                return 'Not Available';
+        }
+    }
+
+    // Resource details
+    public function resourceDetail()
+    {
+        return $this->belongsTo(ResourceDetail::class);
+    }
+
+
 }

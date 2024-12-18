@@ -16,12 +16,14 @@ return new class extends Migration
             $table->string('block_name');
             $table->string('room');
             $table->string('resource_type');
+            $table->string('details')->nullable(); // Add nullable to avoid errors
+            $table->integer('severity')->nullable(); // Severity might be optional
             $table->text('description')->nullable();
             $table->string('image')->nullable();
-            $table->string('priority_level')->nullable();
+            $table->string('priority_level')->nullable(); 
             $table->string('priority')->nullable();
             $table->string('status')->default('pending');
-            $table->timestamps(); // Correctly adds created_at and updated_at
+            $table->timestamps(); // Adds created_at and updated_at
         });
     }
 
