@@ -10,12 +10,32 @@
             max-width: 80%;
         }
         .table-container {
-            margin-top: 30px;
+        background-color: rgba(255, 255, 255, 0.8); /* Adds a semi-transparent white background for readability */
+        border-radius: 10px; /* Rounds the corners */
+        padding: 20px;
+        margin: 20px auto;
+        max-width: 90%;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow for better visibility */
+    }
+        /* Set table background with 50% opacity */
+        .table-opacity {
+            background-color: rgba(255, 255, 255, 0.1); /* White with 50% opacity */
+        }
+
+        /* Optional: Style table headers for contrast */
+        .table thead th {
+            background-color: rgba(0, 0, 0, 0.3); /* Black with 30% opacity */
+            color: white; /* Text color */
+        }
+
+        h1 {
+            color: Black; font-size: 36px !important;
         }
     </style>
     <!-- Include Vite CSS and JS -->
 </head>
-<body>
+<body style ="background: url('/images/createbg.jpg') no-repeat center center fixed; background-size: cover;">
+    <div class="table-container">
     <div class="container">
         <h1 class="text-center mb-4">Submit a Complaint</h1>
 
@@ -113,6 +133,7 @@
                 </tbody>
             </table>
         </div>
+    </div>
     </div>
 
     <!-- Complaint History Modal -->
