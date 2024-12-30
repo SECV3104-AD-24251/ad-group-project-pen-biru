@@ -10,6 +10,7 @@ class CreateTimetableSlotsTable extends Migration
     {
         Schema::create('timetable_slots', function (Blueprint $table) {
             $table->id();
+            $table->string('block');
             $table->string('room_name');
             $table->string('day');
             $table->time('start_time');
