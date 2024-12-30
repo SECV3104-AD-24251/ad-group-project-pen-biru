@@ -116,14 +116,12 @@ Route::post('/maintenance-bookings/{id}/update-status', [MaintenanceBookingContr
     ->name('maintenance-bookings.updateStatus');
 
 
-
-
-Route::get('/timetable', [TimetableController::class, 'showTimetable'])->name('timetable.show');
-
-
-
-
-
-Route::get('/timetable/rooms', [TimetableController::class, 'showRooms'])->name('timetable.rooms');
-Route::get('/timetable/weekly', [TimetableController::class, 'showTimetable'])->name('timetable.weekly');
-Route::post('/timetable/book', [TimetableController::class, 'bookSlot'])->name('timetable.book');
+    // Default route to the timetable page with filtering
+    Route::get('/timetable', [TimetableController::class, 'showTimetable'])->name('timetable.show');
+    
+    // Timetable Routes
+    Route::get('/timetable/rooms', [TimetableController::class, 'showRooms'])->name('timetable.rooms');
+    Route::get('/timetable/weekly', [TimetableController::class, 'showTimetable'])->name('timetable.weekly');
+    Route::post('/timetable/book', [TimetableController::class, 'bookSlot'])->name('timetable.book');
+    Route::post('/timetable/import', [TimetableController::class, 'import'])->name('timetable.import');
+    
