@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ComplaintController;
 use App\Models\Complaint;
+use App\Models\MaintenanceBooking;
+use Illuminate\Http\Request;
+
 
 // Default route to the welcome page
 Route::get('/', function () {
@@ -65,3 +68,26 @@ Route::get('/resource/details', [ComplaintController::class, 'fetchDetails'])->n
 
 //Route to make priotity suggestion
 Route::get('/complaints/show-suggest', [ComplaintController::class, 'showSuggest'])->name('complaints.showSuggest');
+
+Route::resource('maintenance-bookings', MaintenanceBookingController::class);
+Route::get('maintenance-bookings', function () {
+    $bookings = MaintenanceBooking::all();
+    $complaints = Complaint::where('status', 'pending')->get(); // Fetch pending complaints
+    return view('maintenance-bookings', compact('bookings', 'complaints'));
+});
+
+Route::post('maintenance-bookings', function (Request $request) {
+    $request->validate([
+        'date' => 'required|date',
+        'time' => 'required',
+        'task' => 'required', // Store task as a complaint ID
+    ]);
+
+    MaintenanceBooking::create([
+        'date' => $request->date,
+        'time' => $request->time,
+        'task' => Complaint::find($request->task)->description, // Save task description
+    ]);
+
+    return redirect('maintenance-bookings');
+});
