@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\TimetableController;
 use App\Http\Controllers\TimetableSlot;
 
-
 // Default route to the welcome page
 Route::get('/', function () {
     return view('welcome');
@@ -71,28 +70,36 @@ Route::get('/resource/details', [ComplaintController::class, 'fetchDetails'])->n
 //Route to make priotity suggestion
 Route::get('/complaints/show-suggest', [ComplaintController::class, 'showSuggest'])->name('complaints.showSuggest');
 
-Route::resource('maintenance-bookings', MaintenanceBookingController::class);
+//Route::resource('maintenance-bookings', MaintenanceBookingController::class);
 Route::get('maintenance-bookings', function () {
-    $bookings = MaintenanceBooking::all();
-    $complaints = Complaint::where('status', 'pending')->get(); // Fetch pending complaints
+    $bookings = MaintenanceBooking::orderBy('created_at', 'desc')->get(); // Fetch latest first
+    $complaints = Complaint::where('status', 'pending')->get();
     return view('maintenance-bookings', compact('bookings', 'complaints'));
 });
 
+
+
+use Illuminate\Support\Facades\Log;
+
 Route::post('maintenance-bookings', function (Request $request) {
-    $request->validate([
-        'date' => 'required|date',
-        'time' => 'required',
-        'task' => 'required', // Store task as a complaint ID
-    ]);
+    Log::info($request->all()); // Log the incoming data
 
     MaintenanceBooking::create([
         'date' => $request->date,
         'time' => $request->time,
-        'task' => Complaint::find($request->task)->description, // Save task description
+        'task' => Complaint::find($request->task)->description,
+        'block_name' => $request->block_name,
+        'room' => $request->room,
+        'priority' => $request->priority,
     ]);
 
     return redirect('maintenance-bookings');
 });
+
+
+
+
+
 
 Route::get('/timetable/rooms', [TimetableController::class, 'showRooms'])->name('timetable.rooms');
 Route::get('/timetable/weekly', [TimetableController::class, 'showTimetable'])->name('timetable.weekly');
