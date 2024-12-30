@@ -85,10 +85,9 @@
         <label for="severity" class="form-label">Severity:</label>
         <input type="text" name="severity" id="severity" class="form-control" readonly>
     </div>
-            <div class="mb-3">
-                <label for="description" class="form-label">Description:</label>
-                <textarea name="description" id="description" class="form-control"></textarea>
-            </div>
+    <div class="mb-3"> <label for="description" class="form-label">Description:</label> 
+    <textarea name="description" id="description" class="form-control" required></textarea> 
+    </div>
 
             <div class="mb-3">
                 <label for="image" class="form-label">Upload an Image:</label>
