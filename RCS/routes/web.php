@@ -87,7 +87,7 @@ Route::post('maintenance-bookings', function (Request $request) {
     MaintenanceBooking::create([
         'date' => $request->date,
         'time' => $request->time,
-        'task' => Complaint::find($request->task)->description,
+        'task' => Complaint::find($request->task)->resource_type,
         'block_name' => $request->block_name,
         'room' => $request->room,
         'priority' => $request->priority,

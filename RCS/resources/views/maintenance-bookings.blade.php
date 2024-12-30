@@ -54,8 +54,8 @@
             <option value="{{ $complaint->id }}"
                 data-block="{{ $complaint->block_name }}"
                 data-room="{{ $complaint->room }}"
-                data-priority="{{ $complaint->priority_level }}">
-                {{ $complaint->resource_type }} - {{ $complaint->description }}
+                data-priority="{{ $complaint->severity}}">
+                {{ $complaint->resource_type }} - {{ $complaint->severity }}
             </option>
         @endforeach
     </select>
