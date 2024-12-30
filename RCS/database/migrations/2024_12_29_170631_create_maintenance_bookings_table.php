@@ -17,6 +17,9 @@ return new class extends Migration
             $table->time('time');
             $table->string('task');
             $table->timestamps();
+            $table->string('block_name')->nullable();
+            $table->string('room')->nullable();
+            $table->string('priority')->nullable();
         });
         
     }
@@ -27,5 +30,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('maintenance_bookings');
+        Schema::table('maintenance_bookings', function (Blueprint $table) {
+            $table->dropColumn(['block_name', 'room', 'priority']);
+        });
     }
 };
