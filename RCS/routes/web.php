@@ -5,6 +5,8 @@ use App\Http\Controllers\ComplaintController;
 use App\Models\Complaint;
 use App\Models\MaintenanceBooking;
 use Illuminate\Http\Request;
+use App\Http\Controllers\TimetableController;
+use App\Http\Controllers\TimetableSlot;
 
 
 // Default route to the welcome page
@@ -91,3 +93,7 @@ Route::post('maintenance-bookings', function (Request $request) {
 
     return redirect('maintenance-bookings');
 });
+
+Route::get('/timetable/rooms', [TimetableController::class, 'showRooms'])->name('timetable.rooms');
+Route::get('/timetable/weekly', [TimetableController::class, 'showTimetable'])->name('timetable.weekly');
+Route::post('/timetable/book', [TimetableController::class, 'bookSlot'])->name('timetable.book');
