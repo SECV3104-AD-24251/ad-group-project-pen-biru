@@ -7,6 +7,8 @@ use App\Models\MaintenanceBooking;
 use Illuminate\Http\Request;
 use App\Http\Controllers\TimetableController;
 use App\Http\Controllers\TimetableSlot;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\MaintenanceBookingController;
 
 // Default route to the welcome page
 Route::get('/', function () {
@@ -78,9 +80,6 @@ Route::get('maintenance-bookings', function () {
 });
 
 
-
-use Illuminate\Support\Facades\Log;
-
 Route::post('maintenance-bookings', function (Request $request) {
     Log::info($request->all()); // Log the incoming data
 
@@ -95,6 +94,27 @@ Route::post('maintenance-bookings', function (Request $request) {
 
     return redirect('maintenance-bookings');
 });
+
+// Route for viewing the booking status page
+Route::get('/maintenance-bookings/status', function () {
+    $pendingBookings = \App\Models\MaintenanceBooking::where('booking_status', 'pending')->get();
+    $history = \App\Models\MaintenanceBooking::whereIn('booking_status', ['approved', 'disapproved'])->get();
+
+    return view('booking-status', compact('pendingBookings', 'history'));
+})->name('maintenance-bookings.status');
+
+// Route to approve a booking
+Route::get('/maintenance-bookings/{id}/approve', [MaintenanceBookingController::class, 'approve'])
+    ->name('maintenance-bookings.approve');
+
+// Route to disapprove a booking
+Route::get('/maintenance-bookings/{id}/disapprove', [MaintenanceBookingController::class, 'disapprove'])
+    ->name('maintenance-bookings.disapprove');
+
+// Route to update the booking status (from dropdown)
+Route::post('/maintenance-bookings/{id}/update-status', [MaintenanceBookingController::class, 'updateStatus'])
+    ->name('maintenance-bookings.updateStatus');
+
 
 
 

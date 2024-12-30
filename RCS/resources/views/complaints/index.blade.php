@@ -108,6 +108,11 @@
         </table>
     </div>
 
+    <!-- Booking approval -->
+    <div class="d-flex justify-content-end mb-4">
+        <a href="{{ route('maintenance-bookings.status') }}" class="btn btn-primary">View Booking Status</a>
+    </div>
+
     <!-- Add Bootstrap JS for interactivity (optional) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

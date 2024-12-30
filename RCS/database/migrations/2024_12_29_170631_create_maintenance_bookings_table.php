@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('block_name')->nullable();
             $table->string('room')->nullable();
             $table->string('priority')->nullable();
+            $table->string('booking_status')->default('pending'); // Use descriptive column name
         });
         
     }
