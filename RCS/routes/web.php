@@ -9,6 +9,7 @@ use App\Http\Controllers\TimetableController;
 use App\Http\Controllers\TimetableSlot;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\MaintenanceBookingController;
+use App\Http\Controllers\ConflictController;
 
 // Default route to the welcome page
 Route::get('/', function () {
@@ -125,3 +126,21 @@ Route::post('/maintenance-bookings/{id}/update-status', [MaintenanceBookingContr
     Route::post('/timetable/book', [TimetableController::class, 'bookSlot'])->name('timetable.book');
     Route::post('/timetable/import', [TimetableController::class, 'import'])->name('timetable.import');
     
+    Route::get('/conflict', [ConflictController::class, 'index'])->name('conflict.index');
+    Route::get('/conflict/create', [ConflictController::class, 'create'])->name('conflict.create');
+
+    Route::post('/conflict', [ConflictController::class, 'store'])->name('conflict.store');
+    Route::delete('/conflict/{id}', [ConflictController::class, 'destroy'])->name('conflict.destroy');
+
+
+
+   /* Route::prefix('conflict')->name('conflict.')->group(function() {
+        Route::get('/', [ConflictController::class, 'index'])->name('index');
+        Route::get('/create', [ConflictController::class, 'create'])->name('create');
+        Route::post('/', [ConflictController::class, 'store'])->name('store');
+    });
+
+Route::get('timetable', [TimetableController::class, 'index'])->name('timetable.index');
+Route::get('timetable/edit/{id}', [TimetableController::class, 'edit'])->name('timetable.edit');
+Route::put('timetable/update/{id}', [TimetableController::class, 'update'])->name('timetable.update');
+*/

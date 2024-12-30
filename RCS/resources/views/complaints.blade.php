@@ -169,6 +169,10 @@
 
     <!-- Bottom Bar -->
     <div class="bottom-bar">
+
+    <a href="{{ route('conflict.index') }}" class="btn btn-primary">Report Conflicts</a>
+
+
         <a href="#" class="list-view">
             <div class="icon">📋</div>
             <span>List</span>
@@ -177,6 +181,8 @@
             <div class="icon">✅</div>
             <span>Resolved</span>
         </a>
+
+        <a href="{{ route('timetable.show') }}" class="btn btn-primary">View Timetable</a>
     </div>
     <!-- Resolved Complaints Modal -->
     <div class="modal fade" id="resolvedComplaintsModal" tabindex="-1" aria-labelledby="resolvedComplaintsLabel" aria-hidden="true">
