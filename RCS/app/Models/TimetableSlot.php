@@ -9,11 +9,13 @@ class TimetableSlot extends Model
 {
     use HasFactory;
 
+    // Define the fillable fields to protect against mass-assignment vulnerability
     protected $fillable = [
         'room_name',
-        'date',
-        'slot',
-        'description',
-        'status',
+        'day',
+        'start_time',
+        'end_time',
+        'subject',
+        'instructor',
     ];
 }

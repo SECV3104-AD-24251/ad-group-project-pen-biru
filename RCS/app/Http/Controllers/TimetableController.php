@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+/*namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\TimetableSlot; // Import the model
@@ -58,4 +58,21 @@ class TimetableController extends Controller
 
 
 
+}*/
+
+namespace App\Http\Controllers;
+
+use App\Models\TimetableSlot; // Import the TimetableSlot model
+
+class TimetableController extends Controller
+{
+    public function showTimetable()
+    {
+        // Fetch all the timetable data
+        $timetable = TimetableSlot::all(); // You can adjust this query as needed
+
+        // Pass the timetable data to the view
+        return view('timetable.index', compact('timetable'));
+    }
 }
+

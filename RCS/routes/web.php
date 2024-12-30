@@ -98,6 +98,9 @@ Route::post('maintenance-bookings', function (Request $request) {
 
 
 
+Route::get('/timetable', [TimetableController::class, 'showTimetable'])->name('timetable.show');
+
+
 
 
 
