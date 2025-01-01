@@ -20,6 +20,7 @@
                     <th>Block Name</th>
                     <th>Room</th>
                     <th>Priority</th>
+                    <th>Suitability</th> <!-- New column -->
                     <th>Action</th>
                 </tr>
             </thead>
@@ -33,6 +34,12 @@
                         <td>{{ $booking->block_name }}</td>
                         <td>{{ $booking->room }}</td>
                         <td>{{ $booking->priority }}</td>
+                        <!-- Conflict Checker -->
+                        <td>
+                            <span class="badge {{ $booking->is_suitable ? 'bg-success' : 'bg-danger' }}">
+                                {{ $booking->is_suitable ? 'Suitable' : 'Not Suitable' }}
+                            </span>
+                        </td> <!-- New data -->
                         <td>
                             <a href="{{ route('maintenance-bookings.approve', $booking->id) }}" class="btn btn-success">Approve</a>
                             <a href="{{ route('maintenance-bookings.disapprove', $booking->id) }}" class="btn btn-danger">Disapprove</a>

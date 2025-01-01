@@ -10,6 +10,7 @@ use App\Http\Controllers\TimetableSlot;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\MaintenanceBookingController;
 use App\Http\Controllers\ConflictController;
+use App\Http\Controllers\CheckerController;
 
 // Default route to the welcome page
 Route::get('/', function () {
@@ -132,6 +133,9 @@ Route::post('/maintenance-bookings/{id}/update-status', [MaintenanceBookingContr
     Route::post('/conflict', [ConflictController::class, 'store'])->name('conflict.store');
     Route::delete('/conflict/{id}', [ConflictController::class, 'destroy'])->name('conflict.destroy');
 
+
+    // Route to check suitability and display booking-status
+    Route::get('/maintenance-bookings/status', [CheckerController::class, 'checkSuitability'])->name('maintenance-bookings.status');
 
 
    /* Route::prefix('conflict')->name('conflict.')->group(function() {
