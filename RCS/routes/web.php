@@ -83,19 +83,29 @@ Route::get('maintenance-bookings', function () {
 
 
 Route::post('maintenance-bookings', function (Request $request) {
-    Log::info($request->all()); // Log the incoming data
+    $request->validate([
+        'date' => 'required|date',
+        'time' => 'required',
+        'task' => 'required', // Complaint ID
+        'block_name' => 'required',
+        'room' => 'required',
+        'priority' => 'required',
+    ]);
+
+    $complaint = Complaint::find($request->task);
 
     MaintenanceBooking::create([
         'date' => $request->date,
         'time' => $request->time,
-        'task' => Complaint::find($request->task)->resource_type,
-        'block_name' => $request->block_name,
-        'room' => $request->room,
-        'priority' => $request->priority,
+        'task' => $complaint->description, // Save task description
+        'block_name' => $complaint->block_name,
+        'room' => $complaint->room,
+        'priority' => $complaint->priority,
     ]);
 
     return redirect('maintenance-bookings');
 });
+
 
 // Route for viewing the booking status page
 Route::get('/maintenance-bookings/status', function () {

@@ -61,4 +61,12 @@ class MaintenanceBookingController extends Controller
         return redirect()->route('maintenance-bookings.status')->with('success', 'Booking status updated successfully.');
     }
 
+    public function showBookingForm()
+{
+    $complaints = Complaint::whereNotNull('priority')->get(); // Fetch complaints with priority set
+    $bookings = MaintenanceBooking::all(); // Fetch existing bookings
+    
+    return view('maintenance.bookings', compact('complaints', 'bookings'));
+}
+
 }
