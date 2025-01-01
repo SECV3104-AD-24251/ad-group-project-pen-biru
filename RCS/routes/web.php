@@ -86,21 +86,19 @@ Route::post('maintenance-bookings', function (Request $request) {
     $request->validate([
         'date' => 'required|date',
         'time' => 'required',
-        'task' => 'required', // Complaint ID
+        'task' => 'required', // Resource Type
         'block_name' => 'required',
         'room' => 'required',
         'priority' => 'required',
     ]);
 
-    $complaint = Complaint::find($request->task);
-
     MaintenanceBooking::create([
         'date' => $request->date,
         'time' => $request->time,
-        'task' => $complaint->description, // Save task description
-        'block_name' => $complaint->block_name,
-        'room' => $complaint->room,
-        'priority' => $complaint->priority,
+        'task' => $request->task, // Save resource_type as the task
+        'block_name' => $request->block_name,
+        'room' => $request->room,
+        'priority' => $request->priority,
     ]);
 
     return redirect('maintenance-bookings');

@@ -109,29 +109,26 @@
         <!-- Display existing bookings -->
         <div class="table-container">
         <h2>List of Bookings</h2>
-    <table border="1">
+<table border="1">
     <thead>
         <tr>
             <th>Date</th>
             <th>Time</th>
-            <th>Task</th>
+            <th>Task (Resource Type)</th>
             <th>Block Name</th>
             <th>Room</th>
             <th>Priority Level</th>
-            <th>Status</th>
-            
         </tr>
     </thead>
     <tbody>
         @foreach ($bookings as $booking)
             <tr>
-                <td>{{ $booking->date }}</td>
-                <td>{{ $booking->time }}</td>
+                <td>{{ \Carbon\Carbon::parse($booking->date)->format('Y-m-d') }}</td>
+                <td>{{ \Carbon\Carbon::parse($booking->time)->format('H:i') }}</td>
                 <td>{{ $booking->task }}</td>
                 <td>{{ $booking->block_name }}</td>
                 <td>{{ $booking->room }}</td>
                 <td>{{ $booking->priority }}</td>
-                <td>{{ ucfirst($booking->booking_status) }}</td>
             </tr>
         @endforeach
     </tbody>
@@ -147,15 +144,15 @@
     <label for="time">Time:</label>
     <input type="time" name="time" required>
 
-    <label for="task">Task:</label>
+    <label for="task">Task (Resource Type):</label>
     <select name="task" id="task" required>
         <option value="" disabled selected>Select a task</option>
         @foreach ($complaints as $complaint)
-            <option value="{{ $complaint->id }}"
+            <option value="{{ $complaint->resource_type }}"
                 data-block="{{ $complaint->block_name }}"
                 data-room="{{ $complaint->room }}"
                 data-priority="{{ $complaint->priority }}">
-                {{ $complaint->resource_type }} - {{ $complaint->description }}
+                {{ $complaint->resource_type }} - {{ $complaint->block_name }},  {{ $complaint->room }}, {{ $complaint->priority }}
             </option>
         @endforeach
     </select>
@@ -181,6 +178,7 @@
         document.getElementById('priority').value = selectedOption.getAttribute('data-priority');
     });
 </script>
+
 
 </body>
 </html>
