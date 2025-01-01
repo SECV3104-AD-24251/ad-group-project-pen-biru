@@ -111,9 +111,13 @@
 
     </div>
 
-    <!-- Booking approval -->
+       <!-- Booking approval -->
     <div class="d-flex justify-content-end mb-4">
-    
+        <a href="{{ route('maintenance-bookings.status') }}" class="btn btn-primary">View Booking Status</a>
+    </div>
+
+    <div class="d-flex justify-content-end mb-4">
+    <a href="{{ route('maintenance-bookings.status') }}" class="btn btn-primary">View Booking Status</a>
     </div>
 
     <!-- Add Bootstrap JS for interactivity (optional) -->

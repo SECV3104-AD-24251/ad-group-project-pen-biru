@@ -10,6 +10,7 @@ use App\Http\Controllers\TimetableSlot;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\MaintenanceBookingController;
 use App\Http\Controllers\ConflictController;
+use App\Http\Controllers\CheckerController;
 
 // Default route to the welcome page
 Route::get('/', function () {
@@ -82,19 +83,29 @@ Route::get('maintenance-bookings', function () {
 
 
 Route::post('maintenance-bookings', function (Request $request) {
-    Log::info($request->all()); // Log the incoming data
+    $request->validate([
+        'date' => 'required|date',
+        'time' => 'required',
+        'task' => 'required', // Complaint ID
+        'block_name' => 'required',
+        'room' => 'required',
+        'priority' => 'required',
+    ]);
+
+    $complaint = Complaint::find($request->task);
 
     MaintenanceBooking::create([
         'date' => $request->date,
         'time' => $request->time,
-        'task' => Complaint::find($request->task)->resource_type,
-        'block_name' => $request->block_name,
-        'room' => $request->room,
-        'priority' => $request->priority,
+        'task' => $complaint->description, // Save task description
+        'block_name' => $complaint->block_name,
+        'room' => $complaint->room,
+        'priority' => $complaint->priority,
     ]);
 
     return redirect('maintenance-bookings');
 });
+
 
 // Route for viewing the booking status page
 Route::get('/maintenance-bookings/status', function () {
@@ -132,6 +143,9 @@ Route::post('/maintenance-bookings/{id}/update-status', [MaintenanceBookingContr
     Route::post('/conflict', [ConflictController::class, 'store'])->name('conflict.store');
     Route::delete('/conflict/{id}', [ConflictController::class, 'destroy'])->name('conflict.destroy');
 
+
+    // Route to check suitability and display booking-status
+    Route::get('/maintenance-bookings/status', [CheckerController::class, 'checkSuitability'])->name('maintenance-bookings.status');
 
 
    /* Route::prefix('conflict')->name('conflict.')->group(function() {
