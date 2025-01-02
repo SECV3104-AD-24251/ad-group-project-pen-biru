@@ -84,7 +84,7 @@ Route::get('maintenance-bookings', function () {
     $bookings = MaintenanceBooking::orderBy('created_at', 'desc')->get(); // Fetch latest first
     $complaints = Complaint::where('status', 'pending')->get();
     return view('maintenance-bookings', compact('bookings', 'complaints'));
-});
+})->name('maintenance.bookings');
 
 
 Route::post('maintenance-bookings', function (Request $request) {

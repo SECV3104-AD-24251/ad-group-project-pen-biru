@@ -183,6 +183,8 @@
         </a>
 
         <a href="{{ route('timetable.show') }}" class="btn btn-primary">View Timetable</a>
+        <a href="{{ route('maintenance.bookings') }}" class="btn btn-primary">View Maintenance Bookings</a>
+
     </div>
     <!-- Resolved Complaints Modal -->
     <div class="modal fade" id="resolvedComplaintsModal" tabindex="-1" aria-labelledby="resolvedComplaintsLabel" aria-hidden="true">
