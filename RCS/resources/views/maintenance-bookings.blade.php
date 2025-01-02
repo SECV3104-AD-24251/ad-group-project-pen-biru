@@ -118,6 +118,7 @@
             <th>Block Name</th>
             <th>Room</th>
             <th>Priority Level</th>
+            <th>Status</th>
         </tr>
     </thead>
     <tbody>
@@ -129,6 +130,7 @@
                 <td>{{ $booking->block_name }}</td>
                 <td>{{ $booking->room }}</td>
                 <td>{{ $booking->priority }}</td>
+                <td>{{ ucfirst($booking->booking_status) }}</td>
             </tr>
         @endforeach
     </tbody>

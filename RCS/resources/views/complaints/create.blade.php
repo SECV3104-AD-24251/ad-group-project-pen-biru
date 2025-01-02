@@ -49,19 +49,21 @@
         <form action="{{ route('complaints.store') }}" method="POST" enctype="multipart/form-data" class="mb-4">
             @csrf
             <div class="mb-3">
-                <label for="block_name" class="form-label">Block Name:</label>
-                <select name="block_name" id="block_name" class="form-select" required>
-                    <option value="">Select a block</option>
-                    @foreach($blocks as $block)
-                        <option value="{{ $block }}">{{ $block }}</option>
-                    @endforeach
-                </select>
-            </div>
+            <label for="block_name" class="form-label">Block Name:</label>
+            <select name="block_name" id="block_name" class="form-select" required>
+        <option value="">Select a block</option>
+        @foreach ($blocks as $block)
+            <option value="{{ $block }}">{{ $block }}</option>
+        @endforeach
+        </select>
+        </div>
 
-            <div class="mb-3">
-                <label for="room" class="form-label">Room:</label>
-                <input type="text" name="room" id="room" class="form-control" required>
-            </div>
+        <div class="mb-3">
+        <label for="room" class="form-label">Room:</label>
+        <select name="room" id="room" class="form-select" required>
+        <option value="">Select a room</option>
+        </select>
+        </div>
 
             <!-- Resource Type Dropdown -->
             <div class="mb-3">
@@ -154,4 +156,35 @@
     <!-- JavaScript for Dynamic Details Dropdown -->
     @vite(['resources/js/app.js', 'resources/css/app.css'])
 </body>
+<script>
+    document.getElementById('block_name').addEventListener('change', function () {
+        const block = this.value;
+        const roomDropdown = document.getElementById('room');
+
+        // Clear existing options
+        roomDropdown.innerHTML = '<option value="">Select a room</option>';
+
+        if (block) {
+            fetch("{{ route('fetch.rooms') }}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                },
+                body: JSON.stringify({ block: block })
+            })
+            .then(response => response.json())
+            .then(rooms => {
+                rooms.forEach(room => {
+                    const option = document.createElement('option');
+                    option.value = room;
+                    option.textContent = room;
+                    roomDropdown.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Error fetching rooms:', error));
+        }
+    });
+</script>
+
 </html>

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\ComplaintHistory;
 use App\Models\ResourceDetail;
-
+use App\Models\TimetableSlot;
 
 class ComplaintController extends Controller
 {
@@ -72,7 +72,7 @@ class ComplaintController extends Controller
 
     public function create()
     {
-        $blocks = ['Block A', 'Block B', 'Block C'];
+        $blocks = TimetableSlot::distinct()->pluck('block');
         $resources = ['Projector', 'Chair', 'Table', 'PC', 'Monitor', 'Network'];
         $complaints = Complaint::all();
         $details = ResourceDetail::all(); // Fetch all possible resource details
@@ -127,6 +127,16 @@ class ComplaintController extends Controller
 
         // Redirect back with a success message
         return redirect()->route('complaints.create')->with('success', 'Complaint submitted successfully!');
+    }
+
+    public function fetchRooms(Request $request)
+    {
+        $block = $request->input('block');
+    
+        // Fetch rooms for the selected block
+        $rooms = TimetableSlot::where('block', $block)->distinct()->pluck('room_name');
+    
+        return response()->json($rooms);
     }
 
     

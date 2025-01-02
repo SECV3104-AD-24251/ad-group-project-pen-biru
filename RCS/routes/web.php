@@ -74,6 +74,11 @@ Route::get('/resource/details', [ComplaintController::class, 'fetchDetails'])->n
 //Route to make priotity suggestion
 Route::get('/complaints/show-suggest', [ComplaintController::class, 'showSuggest'])->name('complaints.showSuggest');
 
+//get rooms for drop down menu
+Route::post('/fetch-rooms', [ComplaintController::class, 'fetchRooms'])->name('fetch.rooms');
+
+
+
 //Route::resource('maintenance-bookings', MaintenanceBookingController::class);
 Route::get('maintenance-bookings', function () {
     $bookings = MaintenanceBooking::orderBy('created_at', 'desc')->get(); // Fetch latest first
