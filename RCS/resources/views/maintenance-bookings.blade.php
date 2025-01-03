@@ -20,14 +20,6 @@
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
         }
 
-        h1 {
-            font-size: 48px;
-        }
-
-        h2 {
-            font-size: 28px;
-        }
-
         .container {
             max-width: 90%;
             margin: 20px auto;
@@ -38,8 +30,8 @@
         }
 
         .table-container {
-            max-height: 400px; /* Adjust the height as needed */
-            overflow-y: auto; /* Enable vertical scrolling */
+            max-height: 400px;
+            overflow-y: auto;
             margin-top: 20px;
         }
 
@@ -67,34 +59,13 @@
             background-color: #fff;
         }
 
-        form {
-            margin-top: 30px;
-        }
-
-        label {
-            display: block;
-            margin: 10px 0 5px;
-            font-weight: bold;
-        }
-
-        input[type="date"],
-        input[type="time"],
-        select,
-        input[type="text"],
-        button {
-            width: 100%;
-            padding: 10px;
-            margin: 5px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-
         button {
             background-color: #4CAF50;
             color: white;
             border: none;
             cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 5px;
         }
 
         button:hover {
@@ -108,79 +79,80 @@
     <div class="container">
         <!-- Display existing bookings -->
         <div class="table-container">
-        <h2>List of Bookings</h2>
-<table border="1">
-    <thead>
-        <tr>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Task (Resource Type)</th>
-            <th>Block Name</th>
-            <th>Room</th>
-            <th>Priority Level</th>
-            <th>Status</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach ($bookings as $booking)
-            <tr>
-                <td>{{ \Carbon\Carbon::parse($booking->date)->format('Y-m-d') }}</td>
-                <td>{{ \Carbon\Carbon::parse($booking->time)->format('H:i') }}</td>
-                <td>{{ $booking->task }}</td>
-                <td>{{ $booking->block_name }}</td>
-                <td>{{ $booking->room }}</td>
-                <td>{{ $booking->priority }}</td>
-                <td>{{ ucfirst($booking->booking_status) }}</td>
-            </tr>
-        @endforeach
-    </tbody>
-</table>
-
+            <h2>List of Bookings</h2>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Task (Resource Type)</th>
+                        <th>Block Name</th>
+                        <th>Room</th>
+                        <th>Priority Level</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($bookings as $booking)
+                        <tr>
+                            <td>{{ \Carbon\Carbon::parse($booking->date)->format('Y-m-d') }}</td>
+                            <td>{{ \Carbon\Carbon::parse($booking->time)->format('H:i') }}</td>
+                            <td>{{ $booking->task }}</td>
+                            <td>{{ $booking->block_name }}</td>
+                            <td>{{ $booking->room }}</td>
+                            <td>{{ $booking->priority }}</td>
+                            <td>{{ ucfirst($booking->booking_status) }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
 
-        <form action="{{ url('maintenance-bookings') }}" method="POST">
-    @csrf
-    <label for="date">Date:</label>
-    <input type="date" name="date" required>
-
-    <label for="time">Time:</label>
-    <input type="time" name="time" required>
-
-    <label for="task">Task (Resource Type):</label>
-    <select name="task" id="task" required>
-        <option value="" disabled selected>Select a task</option>
-        @foreach ($complaints as $complaint)
-            <option value="{{ $complaint->resource_type }}"
-                data-block="{{ $complaint->block_name }}"
-                data-room="{{ $complaint->room }}"
-                data-priority="{{ $complaint->priority }}">
-                {{ $complaint->resource_type }} - {{ $complaint->block_name }},  {{ $complaint->room }}, {{ $complaint->priority }}
-            </option>
-        @endforeach
-    </select>
-
-    <label for="block_name">Block Name:</label>
-    <input type="text" name="block_name" id="block_name" readonly>
-
-    <label for="room">Room:</label>
-    <input type="text" name="room" id="room" readonly>
-
-    <label for="priority">Priority Level:</label>
-    <input type="text" name="priority" id="priority" readonly>
-
-    <button type="submit">Book Maintenance</button>
-</form>
-
-<script>
-    // Auto-fill fields based on the selected task
-    document.getElementById('task').addEventListener('change', function () {
-        const selectedOption = this.options[this.selectedIndex];
-        document.getElementById('block_name').value = selectedOption.getAttribute('data-block');
-        document.getElementById('room').value = selectedOption.getAttribute('data-room');
-        document.getElementById('priority').value = selectedOption.getAttribute('data-priority');
-    });
-</script>
-
-
+        <!-- Complaints Table -->
+        <div class="table-container">
+            <h2>Pending Complaints</h2>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Resource Type</th>
+                        <th>Block Name</th>
+                        <th>Room</th>
+                        <th>Priority</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($complaints as $complaint)
+                        <tr>
+                            <form action="{{ url('maintenance-bookings') }}" method="POST">
+                                @csrf
+                                <td>{{ $complaint->id }}</td>
+                                <td>{{ $complaint->resource_type }}</td>
+                                <td>{{ $complaint->block_name }}</td>
+                                <td>{{ $complaint->room }}</td>
+                                <td>{{ $complaint->priority }}</td>
+                                <td>
+                                    <input type="date" name="date" required>
+                                </td>
+                                <td>
+                                    <input type="time" name="time" required>
+                                </td>
+                                <td>
+                                    <input type="hidden" name="task" value="{{ $complaint->resource_type }}">
+                                    <input type="hidden" name="block_name" value="{{ $complaint->block_name }}">
+                                    <input type="hidden" name="room" value="{{ $complaint->room }}">
+                                    <input type="hidden" name="priority" value="{{ $complaint->priority }}">
+                                    <button type="submit">Book</button>
+                                </td>
+                            </form>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
 </body>
 </html>
