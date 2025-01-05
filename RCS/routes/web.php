@@ -111,12 +111,12 @@ Route::post('maintenance-bookings', function (Request $request) {
 
 
 // Route for viewing the booking status page
-Route::get('/maintenance-bookings/status', function () {
-    $pendingBookings = \App\Models\MaintenanceBooking::where('booking_status', 'pending')->get();
-    $history = \App\Models\MaintenanceBooking::whereIn('booking_status', ['approved', 'disapproved'])->get();
+// Route::get('/maintenance-bookings/status', function () {
+//     $pendingBookings = \App\Models\MaintenanceBooking::where('booking_status', 'pending')->get();
+//     $history = \App\Models\MaintenanceBooking::whereIn('booking_status', ['approved', 'disapproved'])->get();
 
-    return view('booking-status', compact('pendingBookings', 'history'));
-})->name('maintenance-bookings.status');
+//     return view('booking-status', compact('pendingBookings', 'history'));
+// })->name('maintenance-bookings.status');
 
 // Route to approve a booking
 Route::get('/maintenance-bookings/{id}/approve', [MaintenanceBookingController::class, 'approve'])
@@ -150,6 +150,10 @@ Route::post('/maintenance-bookings/{id}/update-status', [MaintenanceBookingContr
     // Route to check suitability and display booking-status
     Route::get('/maintenance-bookings/status', [CheckerController::class, 'checkSuitability'])->name('maintenance-bookings.status');
 
+    // Route for dropdown menu in booking-status
+    Route::get('/get-classrooms-by-block', [TimetableController::class, 'getClassroomsByBlock']);
+    Route::get('/get-filtered-timetable', [TimetableController::class, 'getFilteredTimetable'])->name('get.filtered.timetable');
+    Route::get('/get-booking-timetable', [CheckerController::class, 'getBookingTimetable'])->name('get.booking.timetable');
 
    /* Route::prefix('conflict')->name('conflict.')->group(function() {
         Route::get('/', [ConflictController::class, 'index'])->name('index');

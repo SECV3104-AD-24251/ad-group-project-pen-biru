@@ -4,8 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Maintenance Bookings</title>
-    <!-- Add Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css" rel="stylesheet">
+    <!-- FullCalendar JS -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
 </head>
 <body>
     <div class="container mt-5">
@@ -20,7 +24,7 @@
                     <th>Block Name</th>
                     <th>Room</th>
                     <th>Priority</th>
-                    <th>Suitability</th> <!-- New column -->
+                    <th>Suitability</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -34,12 +38,12 @@
                         <td>{{ $booking->block_name }}</td>
                         <td>{{ $booking->room }}</td>
                         <td>{{ $booking->priority }}</td>
-                        <!-- Conflict Checker -->
+                         <!-- Conflict Checker -->
                         <td>
                             <span class="badge {{ $booking->is_suitable ? 'bg-success' : 'bg-danger' }}">
                                 {{ $booking->is_suitable ? 'Suitable' : 'Not Suitable' }}
                             </span>
-                        </td> <!-- New data -->
+                        </td>
                         <td>
                             <a href="{{ route('maintenance-bookings.approve', $booking->id) }}" class="btn btn-success">Approve</a>
                             <a href="{{ route('maintenance-bookings.disapprove', $booking->id) }}" class="btn btn-danger">Disapprove</a>
@@ -91,7 +95,125 @@
         </table>
     </div>
 
-    <!-- Add Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Dropdown menu and FullCalendar integration -->
+    <div class="container mt-5">
+        <h2>Timetable Checker</h2>
+
+        <!-- Dropdown for Block -->
+        <div class="mb-3">
+            <label for="block">Select Block:</label>
+            <select id="block" class="form-select">
+                <option value="">-- Select Block --</option>
+                @foreach ($blocks as $block)
+                    <option value="{{ $block }}">{{ $block }}</option>
+                @endforeach
+            </select>
+        </div>
+
+        <!-- Dropdown for Room -->
+        <div class="mb-3">
+            <label for="room_name">Select Classroom:</label>
+            <select id="room_name" class="form-select" disabled>
+                <option value="">-- Select Classroom --</option>
+            </select>
+        </div>
+
+        <!-- FullCalendar Integration -->
+        <div id="calendar"></div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            const calendarEl = document.getElementById('calendar');
+            const calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'timeGridWeek',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'timeGridWeek,timeGridDay'
+                },
+                events: [], // Placeholder for dynamic events
+                eventColor: '#378006', // Set a default color
+                allDaySlot: false,
+                slotMinTime: '08:00:00', // Start displaying time from 8:00 AM
+                slotMaxTime: '17:00:00', // Stop displaying time after 5:00 PM
+                height: 'auto' // Automatically adjust height to content
+            });
+
+            calendar.render();
+
+            // Fetch classrooms when block is selected
+            $('#block').on('change', function () {
+                const block = $(this).val();
+                const roomSelect = $('#room_name');
+
+                if (block) {
+                    $.get('/get-classrooms-by-block', { block: block }, function (data) {
+                        roomSelect.empty().append('<option value="">-- Select Classroom --</option>');
+                        data.forEach(room => {
+                            roomSelect.append(`<option value="${room}">${room}</option>`);
+                        });
+                        roomSelect.prop('disabled', false);
+                        updateTimetable(calendar); // Update timetable on block change
+                    });
+                } else {
+                    roomSelect.prop('disabled', true).empty().append('<option value="">-- Select Classroom --</option>');
+                    calendar.removeAllEvents(); // Clear calendar events
+                }
+            });
+
+            // Update timetable when a room is selected
+            $('#room_name').on('change', function () {
+                updateTimetable(calendar);
+            });
+
+            function updateTimetable(calendarInstance) {
+                const block = $('#block').val();
+                const roomName = $('#room_name').val();
+
+                if (block && roomName) {
+                    $.get('/get-filtered-timetable', { block: block, room_name: roomName }, function (data) {
+                        calendarInstance.removeAllEvents(); // Clear existing events
+
+                        if (data.length > 0) {
+                            data.forEach(slot => {
+                                const dayToNumber = {
+                                    'Monday': 1,
+                                    'Tuesday': 2,
+                                    'Wednesday': 3,
+                                    'Thursday': 4,
+                                    'Friday': 5,
+                                    'Saturday': 6,
+                                    'Sunday': 7
+                                };
+
+                                // Add event for each timetable slot
+                                calendarInstance.addEvent({
+                                    title: `${slot.subject} (${slot.instructor})`,
+                                    start: getDateForDay(dayToNumber[slot.day], slot.start_time),
+                                    end: getDateForDay(dayToNumber[slot.day], slot.end_time)
+                                });
+                            });
+                        }
+                    });
+                } else {
+                    calendarInstance.removeAllEvents(); // Clear events if filters are deselected
+                }
+            }
+
+            // Helper function to get the start/end time for a specific day in the week
+            function getDateForDay(dayOfWeek, time) {
+                const now = new Date();
+                const diff = dayOfWeek - now.getDay();
+                const targetDate = new Date(now);
+
+                targetDate.setDate(now.getDate() + (diff < 0 ? diff + 7 : diff)); // Get next week's date if needed
+                targetDate.setHours(...time.split(':').map(Number));
+                targetDate.setSeconds(0);
+
+                return targetDate.toISOString(); // Return in ISO format for FullCalendar
+            }
+        });
+    </script>
 </body>
 </html>

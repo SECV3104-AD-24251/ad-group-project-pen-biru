@@ -11,6 +11,7 @@ class TimetableSlot extends Model
 
     // Define the fillable fields to protect against mass-assignment vulnerability
     protected $fillable = [
+        'block',
         'room_name',
         'day',
         'start_time',

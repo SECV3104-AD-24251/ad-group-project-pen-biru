@@ -80,9 +80,9 @@
                 <div class="col-md-4">
                     <select name="block" class="form-select">
                         <option value="">Clear Filter</option>
-                        <option value="BlockA" {{ request()->block == 'BlockA' ? 'selected' : '' }}>Block A</option>
-                        <option value="BlockB" {{ request()->block == 'BlockB' ? 'selected' : '' }}>Block B</option>
-                        <option value="BlockC" {{ request()->block == 'BlockC' ? 'selected' : '' }}>Block C</option>
+                        <option value="A" {{ request()->block == 'A' ? 'selected' : '' }}>Block A</option>
+                        <option value="B" {{ request()->block == 'B' ? 'selected' : '' }}>Block B</option>
+                        <option value="C" {{ request()->block == 'C' ? 'selected' : '' }}>Block C</option>
                     </select>
                 </div>
                 <div class="col-md-4">
