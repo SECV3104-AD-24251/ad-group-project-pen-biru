@@ -11,11 +11,17 @@ use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\MaintenanceBookingController;
 use App\Http\Controllers\ConflictController;
 use App\Http\Controllers\CheckerController;
+use App\Http\Controllers\AuthController;
 
 // Default route to the welcome page
 Route::get('/', function () {
     return view('welcome');
 });
+
+//Route for login page
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Routes for creating and storing complaints
 Route::get('/complaints/create', [ComplaintController::class, 'create'])->name('complaints.create');

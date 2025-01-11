@@ -334,8 +334,8 @@ class ComposerStaticInit626b9e7ddd47fb7eff9aaa53cce0c9ad
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -509,7 +509,18 @@ class ComposerStaticInit626b9e7ddd47fb7eff9aaa53cce0c9ad
     );
 
     public static $classMap = array (
+        'App\\Http\\Controllers\\CheckerController' => __DIR__ . '/../..' . '/app/Http/Controllers/CheckerController.php',
+        'App\\Http\\Controllers\\ComplaintController' => __DIR__ . '/../..' . '/app/Http/Controllers/ComplaintController.php',
+        'App\\Http\\Controllers\\ConflictController' => __DIR__ . '/../..' . '/app/Http/Controllers/ConflictController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Controllers\\MaintenanceBookingController' => __DIR__ . '/../..' . '/app/Http/Controllers/MaintenanceBookingController.php',
+        'App\\Http\\Controllers\\TimetableController' => __DIR__ . '/../..' . '/app/Http/Controllers/TimetableController.php',
+        'App\\Models\\Complaint' => __DIR__ . '/../..' . '/app/Models/Complaint.php',
+        'App\\Models\\ComplaintHistory' => __DIR__ . '/../..' . '/app/Models/ComplaintHistory.php',
+        'App\\Models\\Conflict' => __DIR__ . '/../..' . '/app/Models/Conflict.php',
+        'App\\Models\\MaintenanceBooking' => __DIR__ . '/../..' . '/app/Models/MaintenanceBooking.php',
+        'App\\Models\\ResourceDetail' => __DIR__ . '/../..' . '/app/Models/ResourceDetail.php',
+        'App\\Models\\TimetableSlot' => __DIR__ . '/../..' . '/app/Models/TimetableSlot.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
@@ -630,7 +641,11 @@ class ComposerStaticInit626b9e7ddd47fb7eff9aaa53cce0c9ad
         'Cron\\MinutesField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/MinutesField.php',
         'Cron\\MonthField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/MonthField.php',
         'Database\\Factories\\UserFactory' => __DIR__ . '/../..' . '/database/factories/UserFactory.php',
+        'Database\\Seeders\\ComplaintSeeder' => __DIR__ . '/../..' . '/database/seeders/ComplaintSeeder.php',
         'Database\\Seeders\\DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeders/DatabaseSeeder.php',
+        'Database\\Seeders\\ResourceDetailsSeeder' => __DIR__ . '/../..' . '/database/seeders/ResourceDetailsSeeder.php',
+        'Database\\Seeders\\TimetableSeeder' => __DIR__ . '/../..' . '/database/seeders/TimetableSeeder.php',
+        'Database\\Seeders\\TimetableSlotSeeder' => __DIR__ . '/../..' . '/database/seeders/TimetableSlotSeeder.php',
         'DateError' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateError.php',
         'DateException' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateException.php',
         'DateInvalidOperationException' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateInvalidOperationException.php',
