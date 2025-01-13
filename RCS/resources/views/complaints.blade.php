@@ -4,56 +4,75 @@
     <title>Technician UI - List of Complaints</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
     <style>
+body {
+    background-image: url('/images/complaintbg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    font-family: Arial, sans-serif;
+    height: 100vh; /* Ensure the body takes the full height of the viewport */
+    margin: 0; /* Remove any default margin */
+}
 
-    body {
-        background-image: url('/images/complaintbg.jpg');
-        background-size: cover; /* Ensures the image covers the entire viewport */
-        background-repeat: no-repeat; /* Prevents tiling of the image */
-        background-position: center; /* Centers the image */
-        font-family: Arial, sans-serif; /* Ensures text remains legible */
-    }
+.table-container {
+    background-color: rgba(255, 255, 255, 0.8); /* Keep the semi-transparent background for content readability */
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 90%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
 
-    .table-container {
-        background-color: rgba(255, 255, 255, 0.8); /* Adds a semi-transparent white background for readability */
-        border-radius: 10px; /* Rounds the corners */
-        padding: 20px;
-        margin: 20px auto;
-        max-width: 90%;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow for better visibility */
-    }
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
 
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        .filter-sort-buttons {
-            display: flex;
-            gap: 10px;
-        }
-        .bottom-bar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background-color: #f8f9fa;
-            display: flex;
-            justify-content: space-around;
-            padding: 10px 0;
-            box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
-        }
-        .bottom-bar a {
-            text-decoration: none;
-            color: #000;
-            text-align: center;
-        }
-        .bottom-bar a:hover {
-            color: #007bff;
-        }
-        .icon {
-            font-size: 24px;
-        }
+.filter-sort-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.bottom-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(145deg, #e0e0e0, #ffffff); /* Subtle gradient for depth */
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    display: flex;
+    justify-content: space-around;
+    padding: 15px 0;
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2); /* Stronger shadow for depth */
+}
+
+.bottom-bar a {
+    text-decoration: none;
+    color: #333; /* Darker text for better contrast */
+    text-align: center;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background-color: #007bff; /* White background for buttons */
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.bottom-bar a:hover {
+    color: #007bff;
+    background-color: #ffffff ; /* Blue hover background */
+    box-shadow: 0 2px 10px rgba(0, 123, 255, 0.3); /* Blue shadow on hover */
+}
+
+.bottom-bar a:active {
+    transform: scale(0.98); /* Slight scale down effect on click */
+}
+
+.icon {
+    font-size: 24px;
+}
     </style>
 </head>
 <body>

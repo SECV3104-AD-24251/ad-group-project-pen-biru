@@ -62,7 +62,8 @@
 
         <div id="chartContainer">
             <h3 class="text-center">Complaints Overview</h3>
-            <canvas id="complaintsChart" width="400" height="200"></canvas>
+            <canvas id="complaintsChart" width="300" height="300"></canvas>
+
         </div>
     </div>
 
