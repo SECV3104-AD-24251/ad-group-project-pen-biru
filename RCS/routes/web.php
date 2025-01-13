@@ -12,6 +12,8 @@ use App\Http\Controllers\MaintenanceBookingController;
 use App\Http\Controllers\ConflictController;
 use App\Http\Controllers\CheckerController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AnalyticController;
+
 
 // Default route to the welcome page
 Route::get('/', function () {
@@ -160,6 +162,8 @@ Route::post('/maintenance-bookings/{id}/update-status', [MaintenanceBookingContr
     Route::get('/get-classrooms-by-block', [TimetableController::class, 'getClassroomsByBlock']);
     Route::get('/get-filtered-timetable', [TimetableController::class, 'getFilteredTimetable'])->name('get.filtered.timetable');
     Route::get('/get-booking-timetable', [CheckerController::class, 'getBookingTimetable'])->name('get.booking.timetable');
+    
+    Route::get('/analytics', [AnalyticController::class, 'index'])->name('analytics.index');
 
    /* Route::prefix('conflict')->name('conflict.')->group(function() {
         Route::get('/', [ConflictController::class, 'index'])->name('index');
