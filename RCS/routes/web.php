@@ -13,7 +13,7 @@ use App\Http\Controllers\ConflictController;
 use App\Http\Controllers\CheckerController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AnalyticController;
-
+use App\Http\Controllers\ConditionAuditController;
 
 // Default route to the welcome page
 Route::get('/', function () {
@@ -175,3 +175,7 @@ Route::get('timetable', [TimetableController::class, 'index'])->name('timetable.
 Route::get('timetable/edit/{id}', [TimetableController::class, 'edit'])->name('timetable.edit');
 Route::put('timetable/update/{id}', [TimetableController::class, 'update'])->name('timetable.update');
 */
+
+
+Route::get('/condition', [ConditionAuditController::class, 'index'])->name('conditionAudit');
+Route::post('/update-condition', [ConditionAuditController::class, 'updateCondition'])->name('updateCondition');
