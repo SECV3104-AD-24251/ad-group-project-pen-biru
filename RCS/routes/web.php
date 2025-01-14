@@ -164,6 +164,8 @@ Route::post('/maintenance-bookings/{id}/update-status', [MaintenanceBookingContr
     Route::get('/get-booking-timetable', [CheckerController::class, 'getBookingTimetable'])->name('get.booking.timetable');
     
     Route::get('/analytics', [AnalyticController::class, 'index'])->name('analytics.index');
+    Route::get('/complaints/statistics', [ComplaintController::class, 'getComplaintStatistics']);
+
 
    /* Route::prefix('conflict')->name('conflict.')->group(function() {
         Route::get('/', [ConflictController::class, 'index'])->name('index');

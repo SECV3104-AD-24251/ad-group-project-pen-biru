@@ -71,10 +71,13 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <script>
-        // Sample data (replace this with data from your backend)
-        const resolvedComplaints = 75;
-        const unresolvedComplaints = 25;
+    fetch('/complaints/statistics')
+    .then(response => response.json())
+    .then(data => {
+        const resolvedComplaints = data.resolved;
+        const unresolvedComplaints = data.unresolved;
         const totalComplaints = resolvedComplaints + unresolvedComplaints;
 
         // Update card data dynamically
@@ -82,10 +85,10 @@
         document.getElementById('resolvedComplaints').textContent = resolvedComplaints;
         document.getElementById('unresolvedComplaints').textContent = unresolvedComplaints;
 
-        // Chart configuration
+        // Update chart
         const ctx = document.getElementById('complaintsChart').getContext('2d');
         new Chart(ctx, {
-            type: 'doughnut', // Doughnut chart
+            type: 'doughnut',
             data: {
                 labels: ['Resolved Complaints', 'Unresolved Complaints'],
                 datasets: [{
@@ -114,6 +117,8 @@
                 }
             }
         });
+    })
+    .catch(error => console.error('Error fetching complaint statistics:', error));
     </script>
 </body>
 </html>

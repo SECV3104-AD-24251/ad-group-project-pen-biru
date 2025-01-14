@@ -252,5 +252,19 @@ class ComplaintController extends Controller
 
         return view('staff-dashboard.index', compact('complaints', 'priorityLevels'));
     }
+
+    public function getComplaintStatistics()
+    {
+        $resolvedCount = Complaint::where('status', 'resolved')->count();
+        $unresolvedCount = Complaint::where('status', '!=', 'resolved')->count();
+    
+        return response()->json([
+            'resolved' => $resolvedCount,
+            'unresolved' => $unresolvedCount,
+        ]);
+    }
+    
 }
+
+
 
