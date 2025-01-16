@@ -31,6 +31,24 @@
         h1 {
             color: Black; font-size: 36px !important;
         }
+        .route-button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #004aad;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-family: 'Poppins', sans-serif;
+        font-size: 16px;
+        font-weight: 600;
+        text-align: center;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .route-button:hover {
+        background-color: #003c8f;
+    }
     </style>
     <!-- Include Vite CSS and JS -->
 </head>
@@ -151,6 +169,10 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div style="text-align: right; margin-top: 20px;">
+    <a href="/feedback" class="route-button">Give us a Feedback</a>
     </div>
 
     <!-- JavaScript for Dynamic Details Dropdown -->

@@ -14,7 +14,7 @@ use App\Http\Controllers\CheckerController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AnalyticController;
 use App\Http\Controllers\ConditionAuditController;
-
+use App\Http\Controllers\FeedbackController;
 // Default route to the welcome page
 Route::get('/', function () {
     return view('welcome');
@@ -181,3 +181,9 @@ Route::put('timetable/update/{id}', [TimetableController::class, 'update'])->nam
 
 Route::get('/condition', [ConditionAuditController::class, 'index'])->name('conditionAudit');
 Route::post('/update-condition', [ConditionAuditController::class, 'updateCondition'])->name('updateCondition');
+
+
+Route::view('/feedback', 'feedback'); // Renders the feedback form page
+Route::post('/submit-feedback', [FeedbackController::class, 'store']); // Handles form submission
+Route::get('/feedback/statistics', [FeedbackController::class, 'statistics'])->name('feedback.statistics');
+

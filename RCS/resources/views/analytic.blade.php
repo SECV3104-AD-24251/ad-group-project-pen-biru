@@ -66,6 +66,25 @@
 
         </div>
     </div>
+    
+    <div class="row">
+    <!-- Random Suggestion Card -->
+    <div class="col-md-12">
+        <div class="card bg-light text-dark">
+            <div class="card-body">
+                <h3>Random Suggestion</h3>
+                <p id="randomSuggestion" class="lead">Fetching suggestion...</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="feedbackChartContainer">
+    <h3 class="text-center">Feedback Overview</h3>
+    <!-- Resize the chart -->
+    <canvas id="feedbackChart" width="200" height="200"></canvas>
+</div>
+    
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
@@ -119,6 +138,54 @@
         });
     })
     .catch(error => console.error('Error fetching complaint statistics:', error));
+
+    //feedback chart scripts
+    fetch('/feedback/statistics')
+    .then(response => response.json())
+    .then(data => {
+        // Feedback Metrics
+        const feedbackMetrics = data.metrics;
+        const labels = Object.keys(feedbackMetrics);
+        const values = Object.values(feedbackMetrics);
+
+        // Feedback Chart
+        const feedbackCtx = document.getElementById('feedbackChart').getContext('2d');
+        new Chart(feedbackCtx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Average Feedback Rating',
+                    data: values,
+                    backgroundColor: '#007bff',
+                    borderColor: '#0056b3',
+                    borderWidth: 1,
+                }]
+            },
+            options: {
+                responsive: true, // Ensure it resizes
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Rating (1-5)'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                }
+            }
+        });
+
+        // Random Suggestion
+        const randomSuggestion = data.random_suggestion || 'No suggestions available.';
+        document.getElementById('randomSuggestion').textContent = randomSuggestion;
+    })
+    .catch(error => console.error('Error fetching feedback statistics:', error));
     </script>
 </body>
 </html>
