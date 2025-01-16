@@ -1,20 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Analytics Dashboard</title>
+    <title>Dashboard</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
     <style>
         body {
-            background-color: #f8f9fa;
+            background-image: url('/images/createbg.jpg'); /* Replace with your image path */
+            background-size: cover; /* Cover the entire viewport */
+            background-position: center; /* Center the image */
+            background-repeat: no-repeat; /* Prevent repeating */
             font-family: Arial, sans-serif;
         }
+        
         .container {
-            margin-top: 50px;
+        margin-top: 50px;
+        padding: 20px; /* Add padding to the container */
         }
+
         .card {
-            margin: 20px auto;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin: 20px auto;
+        text-align: center;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Increased shadow for depth */
+        border-radius: 10px; /* Rounded corners */
+        transition: transform 0.2s; /* Smooth transition */
+        }
+
+        .card:hover {
+            transform: translateY(-5px); /* Lift effect on hover */
         }
         h1 {
             margin-top: 20px;
@@ -24,9 +36,28 @@
         #chartContainer {
             margin: 40px auto;
             padding: 20px;
-            background-color: white;
+            background-color: rgba(255, 255, 255, 0.9);
             border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: flex;
+        flex-direction: column; /* Stack items vertically */
+        align-items: center; /* Center items horizontally */
+        justify-content: center; /* Center items vertically */
+        margin: 0 auto; /* Center the container itself */
+        }
+
+        #complaintsChart {
+            max-width: 600px; /* Set the maximum width */
+            max-height: 600px; /* Set the maximum height */
+            width: 100%; /* Make it responsive */
+            height: auto; /* Maintain aspect ratio */
+        }
+        #feedbackChartContainer {
+            margin: 40px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white */
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
     </style>
 </head>
@@ -62,8 +93,7 @@
 
         <div id="chartContainer">
             <h3 class="text-center">Complaints Overview</h3>
-            <canvas id="complaintsChart" width="300" height="300"></canvas>
-
+            <canvas id="complaintsChart" width="200" height="200"></canvas>
         </div>
     </div>
     
@@ -120,6 +150,7 @@
             },
             options: {
                 responsive: true,
+                aspectRatio: 1, // Set aspect ratio to 1 for a perfect circle
                 plugins: {
                     legend: {
                         position: 'top',
