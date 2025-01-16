@@ -46,4 +46,18 @@ class ConditionAuditController extends Controller
 
         return response()->json($resources);
     }
+
+    //Function for student to view the resource condition
+    public function studentView()
+    {
+        $rooms = ConditionAudit::select('room')->distinct()->get()->pluck('room');
+        return view('student.resources', compact('rooms'));
+    }
+
+    public function fetchRoomResources($room)
+    {
+        $resources = ConditionAudit::where('room', $room)->get();
+        return response()->json($resources);
+    }
+
 }

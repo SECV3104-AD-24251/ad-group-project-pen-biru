@@ -14,7 +14,7 @@ class ConditionAuditSeeder extends Seeder
 
         // Add PCs (PC1 to PC25)
         for ($i = 1; $i <= 25; $i++) {
-            $resources[] = 'PC ' . $i;
+            $resources[] = 'pc' . $i;
         }
 
         foreach ($rooms as $room) {

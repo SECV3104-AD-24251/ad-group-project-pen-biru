@@ -154,7 +154,6 @@ Route::post('/maintenance-bookings/{id}/update-status', [MaintenanceBookingContr
     Route::post('/conflict', [ConflictController::class, 'store'])->name('conflict.store');
     Route::delete('/conflict/{id}', [ConflictController::class, 'destroy'])->name('conflict.destroy');
 
-
     // Route to check suitability and display booking-status
     Route::get('/maintenance-bookings/status', [CheckerController::class, 'checkSuitability'])->name('maintenance-bookings.status');
 
@@ -166,24 +165,13 @@ Route::post('/maintenance-bookings/{id}/update-status', [MaintenanceBookingContr
     Route::get('/analytics', [AnalyticController::class, 'index'])->name('analytics.index');
     Route::get('/complaints/statistics', [ComplaintController::class, 'getComplaintStatistics']);
 
+    Route::get('/condition', [ConditionAuditController::class, 'index'])->name('conditionAudit');
+    Route::post('/update-condition', [ConditionAuditController::class, 'updateCondition'])->name('updateCondition');
 
-   /* Route::prefix('conflict')->name('conflict.')->group(function() {
-        Route::get('/', [ConflictController::class, 'index'])->name('index');
-        Route::get('/create', [ConflictController::class, 'create'])->name('create');
-        Route::post('/', [ConflictController::class, 'store'])->name('store');
-    });
+    Route::view('/feedback', 'feedback'); // Renders the feedback form page
+    Route::post('/submit-feedback', [FeedbackController::class, 'store']); // Handles form submission
+    Route::get('/feedback/statistics', [FeedbackController::class, 'statistics'])->name('feedback.statistics');
 
-Route::get('timetable', [TimetableController::class, 'index'])->name('timetable.index');
-Route::get('timetable/edit/{id}', [TimetableController::class, 'edit'])->name('timetable.edit');
-Route::put('timetable/update/{id}', [TimetableController::class, 'update'])->name('timetable.update');
-*/
-
-
-Route::get('/condition', [ConditionAuditController::class, 'index'])->name('conditionAudit');
-Route::post('/update-condition', [ConditionAuditController::class, 'updateCondition'])->name('updateCondition');
-
-
-Route::view('/feedback', 'feedback'); // Renders the feedback form page
-Route::post('/submit-feedback', [FeedbackController::class, 'store']); // Handles form submission
-Route::get('/feedback/statistics', [FeedbackController::class, 'statistics'])->name('feedback.statistics');
-
+    //Route for viewing resource condition
+    Route::get('/student/resources', [ConditionAuditController::class, 'studentView'])->name('student.resources');
+    Route::get('/student/resources/{room}', [ConditionAuditController::class, 'fetchRoomResources'])->name('student.resources.fetch');
