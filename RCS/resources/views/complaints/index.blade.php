@@ -116,14 +116,6 @@
         <a href="{{ route('maintenance-bookings.status') }}" class="btn btn-primary">View Booking Status</a>
     </div>
 
-    <!-- Bottom Taskbar -->
-<div class="fixed-bottom bg-dark text-center p-3">
-    <a href="/condition" class="btn btn-light">Resource Condition Audit</a>
-</div>
-
-
-    <a 
-
     <!-- Add Bootstrap JS for interactivity (optional) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
