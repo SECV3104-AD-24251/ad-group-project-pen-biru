@@ -22,12 +22,12 @@ class AuthController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
-    
+
         $user = User::where('email', $request->email)->first();
-    
+
         if ($user && Hash::check($request->password, $user->password)) {
-            session(['user' => $user]);
-    
+            session(['user' => $user]); // Store user in session
+
             // Redirect based on user role
             switch ($user->role) {
                 case 'staff':
@@ -35,12 +35,12 @@ class AuthController extends Controller
                 case 'technician':
                     return redirect()->route('complaints.index');
                 case 'student':
-                    return redirect()->route('complaints.create');
+                    return redirect()->route('student.dashboard'); // Redirect students to their dashboard
                 default:
                     return redirect()->route('login')->withErrors(['role' => 'Role not recognized.']);
             }
         }
-    
+
         return back()->withErrors(['email' => 'Invalid email or password.']);
     }
 

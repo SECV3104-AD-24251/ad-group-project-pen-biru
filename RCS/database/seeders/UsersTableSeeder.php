@@ -17,19 +17,19 @@ class UsersTableSeeder extends Seeder
     {
         DB::table('users')->insert([
             [
-                'name' => 'Technician User',
+                'name' => 'Ikhwanul Muslimin',
                 'email' => 'technician@example.com',
                 'password' => Hash::make('password123'),
                 'role' => 'technician',
             ],
             [
-                'name' => 'Staff User',
+                'name' => 'Ahmad Zahirudin',
                 'email' => 'staff@example.com',
                 'password' => Hash::make('password123'),
                 'role' => 'staff',
             ],
             [
-                'name' => 'Student User',
+                'name' => 'Abid Abidol',
                 'email' => 'student@example.com',
                 'password' => Hash::make('password123'),
                 'role' => 'student',

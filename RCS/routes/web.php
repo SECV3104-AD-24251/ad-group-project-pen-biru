@@ -117,15 +117,6 @@ Route::post('maintenance-bookings', function (Request $request) {
     return redirect('maintenance-bookings');
 });
 
-
-// Route for viewing the booking status page
-// Route::get('/maintenance-bookings/status', function () {
-//     $pendingBookings = \App\Models\MaintenanceBooking::where('booking_status', 'pending')->get();
-//     $history = \App\Models\MaintenanceBooking::whereIn('booking_status', ['approved', 'disapproved'])->get();
-
-//     return view('booking-status', compact('pendingBookings', 'history'));
-// })->name('maintenance-bookings.status');
-
 // Route to approve a booking
 Route::get('/maintenance-bookings/{id}/approve', [MaintenanceBookingController::class, 'approve'])
     ->name('maintenance-bookings.approve');
@@ -175,3 +166,8 @@ Route::post('/maintenance-bookings/{id}/update-status', [MaintenanceBookingContr
     //Route for viewing resource condition
     Route::get('/student/resources', [ConditionAuditController::class, 'studentView'])->name('student.resources');
     Route::get('/student/resources/{room}', [ConditionAuditController::class, 'fetchRoomResources'])->name('student.resources.fetch');
+
+    // Route for the student dashboard
+    Route::get('/student-dashboard', function () {
+        return view('student.student-dashboard');
+    })->name('student.dashboard');

@@ -75,6 +75,36 @@
             border-radius: 5px;
             cursor: pointer;
         }
+        /* Status Indicator */
+        .status-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .square {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .square.green {
+            background-color: #28a745;
+        }
+
+        .square.red {
+            background-color: #dc3545;
+        }
     </style>
 </head>
 <body>
@@ -90,6 +120,16 @@
     </form>
     <div id="room-layout" style="display: none;">
         <h3>Room Layout</h3>
+        <div class="status-indicator">
+            <div class="status">
+                <div class="square green"></div>
+                <span>Working properly</span>
+            </div>
+            <div class="status">
+                <div class="square red"></div>
+                <span>Unusable</span>
+            </div>
+        </div>
         <div id="resources">
             <div id="projector" class="projector">Projector</div>
         </div>
