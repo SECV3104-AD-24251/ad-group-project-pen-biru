@@ -33,88 +33,82 @@
             text-align: center;
             color: #343a40;
         }
-        #chartContainer {
-            margin: 40px auto;
-            padding: 20px;
-            background-color: rgba(255, 255, 255, 0.9);
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            display: flex;
-        flex-direction: column; /* Stack items vertically */
-        align-items: center; /* Center items horizontally */
-        justify-content: center; /* Center items vertically */
-        margin: 0 auto; /* Center the container itself */
-        }
+        #chartContainer,
+#feedbackChartContainer,
+.card.bg-light.text-dark {
+    margin: 40px auto; /* Center horizontally */
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 600px; /* Uniform width for all containers */
+    width: 100%; /* Responsive layout */
+}
 
-        #complaintsChart {
-            max-width: 600px; /* Set the maximum width */
-            max-height: 600px; /* Set the maximum height */
-            width: 100%; /* Make it responsive */
-            height: auto; /* Maintain aspect ratio */
-        }
-        #feedbackChartContainer {
-            margin: 40px auto;
-            padding: 20px;
-            background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white */
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        }
+#complaintsChart,
+#feedbackChart {
+    max-width: 500px; /* Ensure the charts are consistent in size */
+    max-height: 500px;
+    width: 100%; /* Responsive layout */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.card.bg-light.text-dark {
+    text-align: center;
+    max-width: 600px; /* Same width as the charts */
+}
+
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Analytics Dashboard</h1>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card bg-primary text-white">
-                    <div class="card-body">
-                        <h3>Total Complaints</h3>
-                        <p class="display-4" id="totalComplaints">0</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card bg-success text-white">
-                    <div class="card-body">
-                        <h3>Resolved Complaints</h3>
-                        <p class="display-4" id="resolvedComplaints">0</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card bg-danger text-white">
-                    <div class="card-body">
-                        <h3>Unresolved Complaints</h3>
-                        <p class="display-4" id="unresolvedComplaints">0</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="chartContainer">
-            <h3 class="text-center">Complaints Overview</h3>
-            <canvas id="complaintsChart" width="200" height="200"></canvas>
-        </div>
-    </div>
-    
+<div class="container">
+    <h1>Analytics Dashboard</h1>
     <div class="row">
-    <!-- Random Suggestion Card -->
-    <div class="col-md-12">
-        <div class="card bg-light text-dark">
-            <div class="card-body">
-                <h3>Random Suggestion</h3>
-                <p id="randomSuggestion" class="lead">Fetching suggestion...</p>
+        <div class="col-md-4">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <h3>Total Complaints</h3>
+                    <p class="display-4" id="totalComplaints">0</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-success text-white">
+                <div class="card-body">
+                    <h3>Resolved Complaints</h3>
+                    <p class="display-4" id="resolvedComplaints">0</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-danger text-white">
+                <div class="card-body">
+                    <h3>Unresolved Complaints</h3>
+                    <p class="display-4" id="unresolvedComplaints">0</p>
+                </div>
             </div>
         </div>
     </div>
+
+    <div id="chartContainer">
+        <h3 class="text-center">Complaints Overview</h3>
+        <canvas id="complaintsChart" width="200" height="200"></canvas>
+    </div>
+
+    
+
+    <div id="feedbackChartContainer">
+        <h3 class="text-center">Feedback Overview</h3>
+        <canvas id="feedbackChart" width="200" height="200"></canvas>
+    </div>
 </div>
 
-<div id="feedbackChartContainer">
-    <h3 class="text-center">Feedback Overview</h3>
-    <!-- Resize the chart -->
-    <canvas id="feedbackChart" width="200" height="200"></canvas>
-</div>
-    
+<!-- <div class="card bg-light text-dark">
+        <div class="card-body">
+            <h3>User Suggestion</h3>
+            <p id="randomSuggestion" class="lead">Fetching suggestion...</p>
+        </div>
+    </div> -->
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
