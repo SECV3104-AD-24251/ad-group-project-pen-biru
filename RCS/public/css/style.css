@@ -22,6 +22,7 @@ body, h1, ul, li, a {
     font-weight: bold;
 }
 
+/* Role-Based Navbar Menus */
 .navbar-menu {
     display: flex;
     gap: 1rem;
@@ -41,6 +42,7 @@ body, h1, ul, li, a {
     color: #d4edda;
 }
 
+/* Logout Button */
 .logout-btn {
     background-color: #f44336;
     color: white;
@@ -52,6 +54,19 @@ body, h1, ul, li, a {
 
 .logout-btn:hover {
     background-color: #d32f2f;
+}
+
+/* Role-Specific Customizations */
+.navbar.student {
+    background-color: #4CAF50; /* Default Green for Student */
+}
+
+.navbar.staff {
+    background-color: #2196F3; /* Blue for Staff */
+}
+
+.navbar.technician {
+    background-color: #FF9800; /* Orange for Technician */
 }
 
 /* Main Content */

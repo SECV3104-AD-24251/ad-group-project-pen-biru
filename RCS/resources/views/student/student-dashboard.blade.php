@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 <body>
-    <nav class="navbar">
+    <nav class="navbar student">
         <div class="navbar-brand">Resource Complaint System</div>
         <ul class="navbar-menu">
-            <li><a href="#">Home</a></li>
+            <li><a href="/student-dashboard">Home</a></li>
             <li><a href="#">Profile</a></li>
             <li><a href="#">Courses</a></li>
             <li><a href="#">Settings</a></li>

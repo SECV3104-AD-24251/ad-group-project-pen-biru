@@ -10,8 +10,61 @@
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
     <!-- jQuery -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <style>
+
+    body {
+        background: url('{{ asset('images/Background.jpg') }}') no-repeat center center fixed;
+        background-size: cover;
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        overflow-x: hidden; 
+        color: white; 
+    }
+
+    /* Table styling */
+    .table, .table th, .table td {
+        color: white; 
+    }
+
+    /* Table header styling */
+    .table-dark th {
+        color: white; 
+    }
+
+    /* Heading styling */
+    h2, h1 {
+        color: white; 
+    }
+
+    /* Form elements (dropdown, buttons, etc.) */
+    label, .form-select, .btn {
+        color: white; /* Set form elements' text color to white */
+    }
+
+    /* Badge for suitability status */
+    .badge {
+        color: white; /* Set badge text color to white */
+    }
+
+    /* Adjusted button colors for contrast */
+    .btn-success, .btn-danger, .btn-primary {
+        color: white; /* Button text color */
+    }
+
+    </style>
 </head>
 <body>
+    <!-- Navbar -->
+    <div class="navbar staff">
+        <div class="navbar-brand">Booking Status</div>
+        <ul class="navbar-menu">
+            <li><a href="/staff-dashboard">Home</a></li>
+            <li><a href="{{ route('maintenance-bookings.status') }}">View Booking Status</a></li>
+            <li><a href="/condition">Resources</a></li>
+        </ul>
+    </div>
     <div class="container mt-5">
         <h2 class="mb-4">List of Maintenance Bookings</h2>
         <table class="table table-bordered table-striped">

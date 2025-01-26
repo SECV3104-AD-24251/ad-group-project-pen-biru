@@ -8,7 +8,7 @@
     <style>
         /* Body background image */
         body {
-            background-image: url('/images/Timetablebg.jpg'); 
+            background-image: url('{{ asset('images/Background.jpg') }}'); /* Updated background image */
             background-size: cover;
             background-position: center;
             color: #fff; /* Text color to contrast against the background */
@@ -41,7 +41,7 @@
 
         /* Header Row Styling */
         table thead {
-            background-color:rgba(62, 151, 247, 0.66); /* Blue background for header */
+            background-color: rgba(62, 151, 247, 0.66); /* Blue background for header */
             color: white;
         }
 
@@ -67,7 +67,6 @@
             border-color: #007bff;
             box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
         }
-
     </style>
 </head>
 <body>

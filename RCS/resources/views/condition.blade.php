@@ -7,6 +7,7 @@
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
     <style>
         body {
@@ -119,7 +120,15 @@
     </style>
 </head>
 <body>
-    <h1>Resource Condition Audit</h1>
+    <!-- Navbar -->
+    <div class="navbar staff">
+        <div class="navbar-brand">Resource Condition Audit</div>
+        <ul class="navbar-menu">
+            <li><a href="/staff-dashboard">Home</a></li>
+            <li><a href="{{ route('maintenance-bookings.status') }}">View Booking Status</a></li>
+            <li><a href="/condition">Resources</a></li>
+        </ul>
+    </div>
 
     <!-- Room Selection -->
     <form id="room-selection-form">
