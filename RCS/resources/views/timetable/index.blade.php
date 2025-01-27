@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Timetable</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <style>
         /* Body background image */
         body {
@@ -70,6 +71,17 @@
     </style>
 </head>
 <body>
+    <nav class="navbar technician">
+        <div class="navbar-brand">Resource Complaint System</div>
+        <ul class="navbar-menu">
+            <li><a href="/complaints">Home</a></li>
+            <li><a href="{{ route('analytics.index') }}">Analytic</a></li>
+            <li><a href="{{ route('conflict.index') }}">Report Conflict</a></li>
+            <li><a href="{{ route('timetable.show') }}">View Timetable</a></li>
+            <li><a href="{{ route('maintenance.bookings') }}">Book Maintenance</a></li>
+            <li><a href="{{ route('logout') }}" class="logout-btn">Logout</a></li>
+        </ul>
+    </nav>
     <div class="container mt-5">
         <h1 class="text-center mb-4">Timetable</h1>
 
@@ -118,5 +130,29 @@
             </tbody>
         </table>
     </div>
+    <script>
+        const navbar = document.querySelector('.navbar');
+        let lastScrollY = window.scrollY;
+
+        window.addEventListener('scroll', () => {
+            const currentScrollY = window.scrollY;
+
+            // Detect if scrolling down
+            if (currentScrollY > lastScrollY) {
+                navbar.classList.add('hidden'); // Add fade-out class
+            } else {
+                navbar.classList.remove('hidden'); // Remove fade-out class
+            }
+
+            // Optional: Add a translucent effect when scrolling past a threshold
+            if (currentScrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+
+            lastScrollY = currentScrollY;
+        });
+    </script>
 </body>
 </html>

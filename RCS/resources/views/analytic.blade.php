@@ -3,18 +3,22 @@
 <head>
     <title>Dashboard</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <style>
         body {
-            background-image: url('/images/createbg.jpg'); /* Replace with your image path */
-            background-size: cover; /* Cover the entire viewport */
-            background-position: center; /* Center the image */
-            background-repeat: no-repeat; /* Prevent repeating */
-            font-family: Arial, sans-serif;
+            background-image: url('{{ asset('images/Background.jpg') }}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
         }
-        
+
+        /* Container Styles */
         .container {
-        margin-top: 50px;
-        padding: 20px; /* Add padding to the container */
+            background: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3); /* Subtle shadow for better contrast */
         }
 
         .card {
@@ -61,47 +65,58 @@
     </style>
 </head>
 <body>
-<div class="container">
-    <h1>Analytics Dashboard</h1>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card bg-primary text-white">
-                <div class="card-body">
-                    <h3>Total Complaints</h3>
-                    <p class="display-4" id="totalComplaints">0</p>
+    <nav class="navbar technician">
+        <div class="navbar-brand">Resource Complaint System</div>
+        <ul class="navbar-menu">
+            <li><a href="/complaints">Home</a></li>
+            <li><a href="{{ route('analytics.index') }}">Analytic</a></li>
+            <li><a href="{{ route('conflict.index') }}">Report Conflict</a></li>
+            <li><a href="{{ route('timetable.show') }}">View Timetable</a></li>
+            <li><a href="{{ route('maintenance.bookings') }}">Book Maintenance</a></li>
+            <li><a href="{{ route('logout') }}" class="logout-btn">Logout</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h1 style="color: white;">Analytics Dashboard</h1>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card bg-primary text-white">
+                    <div class="card-body">
+                        <h3>Total Complaints</h3>
+                        <p class="display-4" id="totalComplaints">0</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card bg-success text-white">
+                    <div class="card-body">
+                        <h3>Resolved Complaints</h3>
+                        <p class="display-4" id="resolvedComplaints">0</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card bg-danger text-white">
+                    <div class="card-body">
+                        <h3>Unresolved Complaints</h3>
+                        <p class="display-4" id="unresolvedComplaints">0</p>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card bg-success text-white">
-                <div class="card-body">
-                    <h3>Resolved Complaints</h3>
-                    <p class="display-4" id="resolvedComplaints">0</p>
-                </div>
-            </div>
+
+        <div id="chartContainer">
+            <h3 class="text-center">Complaints Overview</h3>
+            <canvas id="complaintsChart" width="200" height="200"></canvas>
         </div>
-        <div class="col-md-4">
-            <div class="card bg-danger text-white">
-                <div class="card-body">
-                    <h3>Unresolved Complaints</h3>
-                    <p class="display-4" id="unresolvedComplaints">0</p>
-                </div>
-            </div>
+
+        
+
+        <div id="feedbackChartContainer">
+            <h3 class="text-center">Feedback Overview</h3>
+            <canvas id="feedbackChart" width="200" height="200"></canvas>
         </div>
     </div>
-
-    <div id="chartContainer">
-        <h3 class="text-center">Complaints Overview</h3>
-        <canvas id="complaintsChart" width="200" height="200"></canvas>
-    </div>
-
-    
-
-    <div id="feedbackChartContainer">
-        <h3 class="text-center">Feedback Overview</h3>
-        <canvas id="feedbackChart" width="200" height="200"></canvas>
-    </div>
-</div>
 
 <!-- <div class="card bg-light text-dark">
         <div class="card-body">
@@ -211,6 +226,29 @@
         document.getElementById('randomSuggestion').textContent = randomSuggestion;
     })
     .catch(error => console.error('Error fetching feedback statistics:', error));
+
+    const navbar = document.querySelector('.navbar');
+    let lastScrollY = window.scrollY;
+
+    window.addEventListener('scroll', () => {
+        const currentScrollY = window.scrollY;
+
+        // Detect if scrolling down
+        if (currentScrollY > lastScrollY) {
+            navbar.classList.add('hidden'); // Add fade-out class
+        } else {
+            navbar.classList.remove('hidden'); // Remove fade-out class
+        }
+
+        // Optional: Add a translucent effect when scrolling past a threshold
+        if (currentScrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+
+        lastScrollY = currentScrollY;
+    });
     </script>
 </body>
 </html>

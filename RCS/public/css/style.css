@@ -9,12 +9,37 @@ body, h1, ul, li, a {
 
 /* Navbar Styles */
 .navbar {
+    position: fixed; /* Keep navbar at the top */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
     display: flex;
     justify-content: space-between;
     align-items: center;
     background-color: #4CAF50;
     padding: 1rem 2rem;
     color: white;
+    transition: opacity 0.5s ease, background-color 0.5s ease;
+    height: 64px; /* Specify a height for the navbar */
+}
+
+/* Add spacing below the navbar */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    padding-top: 64px; /* Match the navbar's height */
+}
+
+.navbar.hidden {
+    opacity: 0; /* Fully fades out */
+    pointer-events: none; /* Prevent interaction when faded */
+}
+
+/* Add a slightly translucent effect when scrolling */
+.navbar.scrolled {
+    background-color: rgba(76, 175, 80, 0.9);
 }
 
 .navbar-brand {
@@ -66,7 +91,7 @@ body, h1, ul, li, a {
 }
 
 .navbar.technician {
-    background-color: #FF9800; /* Orange for Technician */
+    background-color: #0099ff; /* Orange for Technician */
 }
 
 /* Main Content */

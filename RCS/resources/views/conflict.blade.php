@@ -5,11 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Conflict Management</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <style>
+        body {
+            background-image: url('{{ asset('images/Background.jpg') }}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        /* Container Styles */
+        .container {
+            background: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3); /* Subtle shadow for better contrast */
+        }
+        /* Table Styles */
+        .table {
+            color: white; 
+        }
+    </style>
 </head>
 <body>
-
+    <nav class="navbar technician">
+        <div class="navbar-brand">Resource Complaint System</div>
+        <ul class="navbar-menu">
+            <li><a href="/complaints">Home</a></li>
+            <li><a href="{{ route('analytics.index') }}">Analytic</a></li>
+            <li><a href="{{ route('conflict.index') }}">Report Conflict</a></li>
+            <li><a href="{{ route('timetable.show') }}">View Timetable</a></li>
+            <li><a href="{{ route('maintenance.bookings') }}">Book Maintenance</a></li>
+            <li><a href="{{ route('logout') }}" class="logout-btn">Logout</a></li>
+        </ul>
+    </nav>
     <div class="container mt-5">
-        <h1>Conflict Management</h1>
+        <h1 style="color: white;">Conflict Management</h1>
 
         <!-- Success Message -->
         @if (session('success'))

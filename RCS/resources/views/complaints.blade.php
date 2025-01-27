@@ -3,15 +3,22 @@
 <head>
     <title>Technician UI - List of Complaints</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <style>
 body {
-    background-image: url('/images/complaintbg.jpg');
+    background-image: url('{{ asset('images/Background.jpg') }}');
     background-size: cover;
-    background-repeat: no-repeat;
     background-position: center;
-    font-family: Arial, sans-serif;
-    height: 100vh; /* Ensure the body takes the full height of the viewport */
-    margin: 0; /* Remove any default margin */
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* Container Styles */
+.container {
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3); /* Subtle shadow for better contrast */
 }
 
 .table-container {
@@ -76,6 +83,17 @@ body {
     </style>
 </head>
 <body>
+    <nav class="navbar technician">
+        <div class="navbar-brand">Resource Complaint System</div>
+        <ul class="navbar-menu">
+            <li><a href="/complaints">Home</a></li>
+            <li><a href="{{ route('analytics.index') }}">Analytic</a></li>
+            <li><a href="{{ route('conflict.index') }}">Report Conflict</a></li>
+            <li><a href="{{ route('timetable.show') }}">View Timetable</a></li>
+            <li><a href="{{ route('maintenance.bookings') }}">Book Maintenance</a></li>
+            <li><a href="{{ route('logout') }}" class="logout-btn">Logout</a></li>
+        </ul>
+    </nav>
     <div class="table-container">
         <!-- Top Bar -->
         <div class="top-bar">
@@ -186,19 +204,6 @@ body {
         </table>
     </div>
 
-    <!-- Bottom Bar -->
-    <div class="bottom-bar">
-    <a href="{{ route('analytics.index') }}" class="btn btn-primary">Analytics Dashboard</a>
-    <a href="{{ route('conflict.index') }}" class="btn btn-primary">Report Conflicts</a>
-        <a href="#" class="btn btn-primary resolved-view"> List 
-            .
-        </a>
-    <a href="#" class="btn btn-primary resolved-view" data-bs-toggle="modal" data-bs-target="#resolvedComplaintsModal">Resolved</a>
-
-        <a href="{{ route('timetable.show') }}" class="btn btn-primary">View Timetable</a>
-        <a href="{{ route('maintenance.bookings') }}" class="btn btn-primary">View Maintenance Bookings</a>
-
-    </div>
     <!-- Resolved Complaints Modal -->
     <div class="modal fade" id="resolvedComplaintsModal" tabindex="-1" aria-labelledby="resolvedComplaintsLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
