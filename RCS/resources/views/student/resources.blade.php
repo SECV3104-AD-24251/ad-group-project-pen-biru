@@ -6,6 +6,7 @@
     <title>Classroom Resource Viewer</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <style>
         /* Basic styling */
         body {
@@ -13,6 +14,12 @@
             background-color: #f4f7fc;
             margin: 0;
             padding: 0;
+
+            background-image: url('{{ asset('images/Background.jpg') }}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
         }
         h1 {
             text-align: center;
@@ -108,6 +115,15 @@
     </style>
 </head>
 <body>
+    <nav class="navbar student">
+            <div class="navbar-brand">Resource Complaint System</div>
+            <ul class="navbar-menu">
+                <li><a href="/student-dashboard">Home</a></li>
+                <li><a href="{{ route('complaints.create') }}">Create Complaints</a></li>
+                <li><a href="{{ route('student.resources') }}">Classroom Resources</a></li>
+                <li><a href="{{ route('logout') }}" class="logout-btn">Logout</a></li>
+            </ul>
+        </nav>
     <h1>Classroom Resource Viewer</h1>
     <form>
         <label for="room">Select Room:</label>
