@@ -3,75 +3,95 @@
 <head>
     <title>Technician UI - List of Complaints</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <style>
-body {
-    background-image: url('{{ asset('images/Background.jpg') }}');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-}
+    body {
+        background-image: url('{{ asset('images/Background.jpg') }}');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
 
-.table-container {
-    background-color: rgba(255, 255, 255, 0.8); /* Keep the semi-transparent background for content readability */
-    border-radius: 10px;
-    padding: 20px;
-    margin: 20px auto;
-    max-width: 90%;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
+    .table-container {
+        background-color: rgba(255, 255, 255, 0.8); /* Keep the semi-transparent background for content readability */
+        border-radius: 10px;
+        padding: 20px;
+        margin: 20px auto;
+        max-width: 90%;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
 
-.top-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-}
+    .filter-sort-buttons {
+        display: flex;
+        gap: 10px;
+    }
 
-.filter-sort-buttons {
-    display: flex;
-    gap: 10px;
-}
+    .icon {
+        font-size: 24px;
+    }
+    .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        max-width: 100vw;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #004aad;
+        padding: 10px 20px;
+        color: white;
+        z-index: 1000; /* Ensures it's above other content */
+    }
 
-.bottom-bar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: linear-gradient(145deg, #e0e0e0, #ffffff); /* Subtle gradient for depth */
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    display: flex;
-    justify-content: space-around;
-    padding: 15px 0;
-    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2); /* Stronger shadow for depth */
-}
 
-.bottom-bar a {
-    text-decoration: none;
-    color: #333; /* Darker text for better contrast */
-    text-align: center;
-    padding: 10px 20px;
-    border-radius: 8px;
-    background-color: #007bff; /* White background for buttons */
-    transition: all 0.3s ease;
-    font-weight: 500;
-}
+    .navbar-menu {
+        display: flex;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
 
-.bottom-bar a:hover {
-    color: #007bff;
-    background-color: #ffffff ; /* Blue hover background */
-    box-shadow: 0 2px 10px rgba(0, 123, 255, 0.3); /* Blue shadow on hover */
-}
+    .navbar-menu li {
+        margin: 0 10px;
+    }
 
-.bottom-bar a:active {
-    transform: scale(0.98); /* Slight scale down effect on click */
-}
+    .navbar-menu a {
+        text-decoration: none;
+        color: white;
+        font-weight: 600;
+    }
 
-.icon {
-    font-size: 24px;
-}
+    @media (max-width: 768px) {
+        .navbar {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .navbar-menu {
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .navbar-menu li {
+            margin: 5px 0;
+        }
+    }
+    /* Logout Button */
+    .logout-btn {
+        background-color: #f44336;
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+    }
+
+    .logout-btn:hover {
+        background-color: #d32f2f;
+    }
     </style>
 </head>
 <body>

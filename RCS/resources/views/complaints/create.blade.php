@@ -118,12 +118,6 @@
     <div class="mb-3"> <label for="description" class="form-label">Description:</label> 
     <textarea name="description" id="description" class="form-control" required></textarea> 
     </div>
-
-            <div class="mb-3">
-                <label for="image" class="form-label">Upload an Image:</label>
-                <input type="file" name="image" id="image" class="form-control">
-            </div>
-
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
 
