@@ -112,37 +112,6 @@
         .square.red {
             background-color: #dc3545;
         }
-
-        .navbar {
-    max-width: 1459px; /* Adjust as needed */
-    margin: 0 auto; /* Centers the navbar */
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #004aad;
-    color: white;
-    border-radius: 8px;
-}
-
-.navbar-menu {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-    padding: 0;
-}
-
-.navbar-menu li {
-    display: inline;
-}
-
-.navbar-menu a {
-    color: white;
-    text-decoration: none;
-    font-weight: 600;
-    padding: 10px;
-}
-
     </style>
 </head>
 <body>

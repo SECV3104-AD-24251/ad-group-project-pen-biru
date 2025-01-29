@@ -42,19 +42,6 @@
         cursor: pointer;
         transition: background-color 0.3s ease;
     }
-
-    .navbar {
-    max-width: 1459px; /* Adjust as needed /
-    margin: 0 auto; / Centers the navbar */
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #004aad;
-    color: white;
-    border-radius: 8px;
-}
-
     </style>
 </head>
 <body>
