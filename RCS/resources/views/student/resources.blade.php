@@ -125,6 +125,24 @@
     border-radius: 8px;
 }
 
+.navbar-menu {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    padding: 0;
+}
+
+.navbar-menu li {
+    display: inline;
+}
+
+.navbar-menu a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 10px;
+}
+
     </style>
 </head>
 <body>
