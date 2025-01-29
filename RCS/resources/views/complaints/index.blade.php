@@ -68,8 +68,8 @@
         body {
             background: url('{{ asset('images/Background.jpg') }}') no-repeat center center fixed;
             background-size: cover;
-            margin: 0;
-            padding: 0;
+            margin: 100;
+            padding: 100;
             min-height: 100vh;
             overflow-x: hidden;
         }
@@ -120,6 +120,7 @@
             <li><a href="/staff-dashboard">Home</a></li>
             <li><a href="{{ route('maintenance-bookings.status') }}">View Booking Status</a></li>
             <li><a href="/condition">Resources</a></li>
+            <li><a href="{{ route('logout') }}" class="logout-btn">Logout</a></li>
         </ul>
     </div>
 

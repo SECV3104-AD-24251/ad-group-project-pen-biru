@@ -13,14 +13,6 @@ body {
     background-attachment: fixed;
 }
 
-/* Container Styles */
-.container {
-    background: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3); /* Subtle shadow for better contrast */
-}
-
 .table-container {
     background-color: rgba(255, 255, 255, 0.8); /* Keep the semi-transparent background for content readability */
     border-radius: 10px;

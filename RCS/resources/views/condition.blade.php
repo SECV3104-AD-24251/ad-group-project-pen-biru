@@ -11,11 +11,18 @@
 
     <style>
         body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f7fc;
-            color: #333;
+            background-image: url('{{ asset('images/Background.jpg') }}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        .container {
+            background: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3); /* Subtle shadow for better contrast */
         }
 
         h1 {
@@ -117,20 +124,68 @@
             background: rgba(0, 0, 0, 0.5);
             z-index: 999;
         }
+        .navbar {
+            max-width: 100vw; /* Ensures it doesn't go beyond the viewport width */
+            width: 100%;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #004aad;
+            padding: 10px 20px;
+            color: white;
+            overflow-x: hidden; /* Prevents horizontal scrolling */
+        }
+
+        .navbar-menu {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .navbar-menu li {
+            margin: 0 10px;
+        }
+
+        .navbar-menu a {
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .navbar-menu {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .navbar-menu li {
+                margin: 5px 0;
+            }
+        }
     </style>
 </head>
 <body>
     <!-- Navbar -->
-    <div class="navbar staff">
+    <nav class="navbar staff">
         <div class="navbar-brand">Resource Condition Audit</div>
         <ul class="navbar-menu">
             <li><a href="/staff-dashboard">Home</a></li>
             <li><a href="{{ route('maintenance-bookings.status') }}">View Booking Status</a></li>
             <li><a href="/condition">Resources</a></li>
+            <li><a href="{{ route('logout') }}" class="logout-btn">Logout</a></li>
         </ul>
-    </div>
+    </nav>
 
     <!-- Room Selection -->
+    <div class="container mt-5">
     <form id="room-selection-form">
         <label for="room">Select Room:</label>
         <select name="room" id="room" required>
@@ -147,6 +202,7 @@
 
         <button type="submit">View Resource</button>
     </form>
+    </div>
 
     <!-- Room Layout -->
     <div id="room-layout">

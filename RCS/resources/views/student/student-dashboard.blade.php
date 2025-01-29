@@ -42,6 +42,53 @@
         cursor: pointer;
         transition: background-color 0.3s ease;
     }
+
+    .navbar {
+    max-width: 100vw; /* Ensures it doesn't go beyond the viewport width */
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #004aad;
+    padding: 10px 20px;
+    color: white;
+    overflow-x: hidden; /* Prevents horizontal scrolling */
+    }
+
+    .navbar-menu {
+        display: flex;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .navbar-menu li {
+        margin: 0 10px;
+    }
+
+    .navbar-menu a {
+        text-decoration: none;
+        color: white;
+        font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+        .navbar {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .navbar-menu {
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .navbar-menu li {
+            margin: 5px 0;
+        }
+    }
     </style>
 </head>
 <body>

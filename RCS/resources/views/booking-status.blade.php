@@ -15,12 +15,16 @@
 
     body {
         background: url('{{ asset('images/Background.jpg') }}') no-repeat center center fixed;
-        background-size: cover;
-        margin: 0;
-        padding: 0;
+        background-size: cover;   
         min-height: 100vh;
         overflow-x: hidden; 
         color: white; 
+    }
+    .container {
+        background: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3); /* Subtle shadow for better contrast */
     }
 
     /* Table styling */
@@ -53,6 +57,15 @@
         color: white; /* Button text color */
     }
 
+    label[for="block"], label[for="room_name"] {
+        color: white;
+    }
+
+    /* Ensure the dropdown text is also black */
+    #block, #room_name {
+        color: black;
+    }
+
     </style>
 </head>
 <body>
@@ -63,6 +76,7 @@
             <li><a href="/staff-dashboard">Home</a></li>
             <li><a href="{{ route('maintenance-bookings.status') }}">View Booking Status</a></li>
             <li><a href="/condition">Resources</a></li>
+            <li><a href="{{ route('logout') }}" class="logout-btn">Logout</a></li>
         </ul>
     </div>
     <div class="container mt-5">
