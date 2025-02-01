@@ -26,9 +26,14 @@
         border-radius: 15px;
         box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3); /* Subtle shadow for better contrast */
     }
+    /* Targeting table data cells within the table */
+.table td {
+    color: black; /* Set text color to black */
+}
+
 
     /* Table styling */
-    .table, .table th, .table td {
+    .table, .table th {
         color: white; 
     }
 
